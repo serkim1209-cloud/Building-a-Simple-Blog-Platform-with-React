@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import user from "../assets/user.svg";
+import like from "../assets/like.svg";
 import Loading from "./Loadinf";
 import "swiper/css";
 function Main() {
@@ -21,8 +23,6 @@ function Main() {
 
       setArticles(responce.articles);
       setButtonNumbers(responce.articlesCount);
-
-      await new Promise((resolve) => setTimeout(resolve, 200));
       setLoading(true);
     } catch (error) {
       console.log(error);
@@ -32,22 +32,44 @@ function Main() {
     getArticles();
   }, [page]);
   return (
-    <main className="flex items-center flex-col max-w-[1280px] min-h-[978px] gap-[5px]">
-      {!loading && <Loading />}
+    <main className="flex relative items-center flex-col max-w-[1280px] min-h-[978px] gap-5 py-5">
+    {!loading&&<Loading/>}
       {articles.map((article) => (
-        
-        <div key={article.slug} className=" border max-w-[800px] min-h-[278px]">
-            
-          <p>{article.author.username}</p>
-          <h1>{article.title}</h1>
-          <p>{article.body}</p>
+        <div key={article.slug} className="border w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA]" >
+          <div className="flex items-center justify-between  h-[36px]">
+            <img className="pr-2 w-[34px] h-[34px] " src="/src/assets/user.svg" />
+            <div className="mr-auto">
+              <h1 className="font-semibold text-[16px] text-[#5CB85C] ">{article.author.username}</h1>
+              <p className="text-[#AAAAAA] text-[12.8px] ">
+                {new Date(article.createdAt).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
+            <div className="flex w-[77px] h-[40px] items-center justify-center justify-evenly rounded-xl border-1 border-[#5CB85C] ">
+                <div>
+                    <img src="/src/assets/like.svg"/>
+                </div>
+                {article.favoritesCount}
+            </div>
+          </div>
+
+          <h1 className="font-semibold text-[32px] ">{article.title}</h1>
+          <p className="font-Regular text-[16px] text-[#AAAAAA] ">{article.body}</p>
+          <div className="flex gap-2">
+            {article.tagList.map((tag)=>(
+                <button className="flex items-center justify-center px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA] ">{tag}</button>
+            ))}
+          </div>
         </div>
       ))}
       <Swiper slidesPerView={"auto"} spaceBetween={8} className="w-[500px]">
         {Array.from({ length: Math.ceil(buttonNumbers / 3) }, (_, index) => (
           <SwiperSlide
             key={index}
-            className=" !w-[24px] !h-[24px] flex items-center justify-center rounded border border-green-500 text-green-500"
+            className=" !w-[24px] !h-[24px] flex items-center justify-center border border-green-500 text-green-500"
           >
             <button
               className="flex items-center justify-center w-full h-full"
