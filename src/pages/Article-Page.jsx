@@ -8,14 +8,14 @@ function Article() {
   const { slug } = useParams();
   const {
     data: article,
-    loading,
+    load,
     error,
   } = useGetApi(`https://realworld.habsida.net/api/articles/${slug}`);
   const articl = article?.article || [];
 
   return (
     <>
-      {loading && <Loading />}
+      {load && <Loading />}
       <div
         key={articl.slug}
         className="flex flex-col items-center justify-center max-w-[1280px] min-h-[772px] gap-[24px]"
