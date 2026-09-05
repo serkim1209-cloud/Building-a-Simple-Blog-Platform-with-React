@@ -1,22 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Loading from "./Component/Loadinf";
-import Main from "./Component/Main";
-import Navigation from "./Component/Navigation";
-import Header from "./Component/Header";
-import Article from "./Component/Article";
-
+import Loading from "./components/loading/Loading";
+import Main from "./pages/Main-Page";
+import Article from "./pages/Article-Page";
+import Layout from "./components/layout/Layout";
 import "./App.css";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Navigation />
-        <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/articles/:slug" element={<Article />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Main />} />
+            <Route path="articles/:slug" element={<Article />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
