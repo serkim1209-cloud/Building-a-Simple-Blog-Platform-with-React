@@ -5,6 +5,7 @@ import Profile from "../assets/Profile.svg";
 import useGetApi from "../custom-hook/useGetApi";
 
 function Article() {
+  const profile = localStorage.getItem("username")
   const { slug } = useParams();
   const {
     data: article,
@@ -63,7 +64,7 @@ function Article() {
             <div className="flex items-center justify-center gap-3 w-auto h-[36px]">
               <img className="w-[16px] h-[16px]" src={Profile} />
               <div>
-                <h1>Profile</h1>
+                <h1>{profile}</h1>
                 <div className="flex font-regular text-[#AAAAAA] text-[12.8px]">
                   {new Date().toLocaleDateString("en-GB", {
                     day: "2-digit",
