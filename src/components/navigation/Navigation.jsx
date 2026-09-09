@@ -13,19 +13,13 @@ function Navigation() {
         <button>
           <Link to="/">Home</Link>
         </button>
-        <button
-          className={`${location.pathname.startsWith("/articles") ? "hidden" : "block"}`}
-        >
+        <button>
           <Link to="sigIn">Sign In</Link>
         </button>
-        <button
-          className={`${location.pathname.startsWith("/articles") ? "hidden" : "block"}`}
-        >
-          Sign Up
+        <button>
+          <Link to="signup">Sign Up</Link>
         </button>
-        <div
-          className={`flex items-center justify-center gap-2 ${location.pathname.startsWith("/articles") ? "block" : "hidden"}`}
-        >
+        <div className="hidden">
           <button className="flex justify-center items-center gap-2">
             <img className=" w-[16px]h-[16px]" src={newPost} /> New Post
           </button>
