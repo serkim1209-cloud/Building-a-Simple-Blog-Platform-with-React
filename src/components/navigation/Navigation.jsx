@@ -1,11 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Profile from "../../assets/Profile.svg";
 import settings from "../../assets/settings.svg";
 import newPost from "../../assets/New post.svg";
 
 function Navigation() {
-  const location = useLocation();
-  const profile = localStorage.getItem("username");
+  const vision = localStorage.getItem("vision")
+  const profile = localStorage.getItem("name");
   return (
     <div className="flex items-center justify-center max-w-[1280px] h-[54px] ">
       <div className="  flex gap-5  w-[800px] h-[34px]">
@@ -13,13 +13,13 @@ function Navigation() {
         <button>
           <Link to="/">Home</Link>
         </button>
-        <button>
+        <button className={vision?"hidden":"block"} >
           <Link to="sigIn">Sign In</Link>
         </button>
-        <button>
+        <button className={vision?"hidden":"block"} >
           <Link to="signup">Sign Up</Link>
         </button>
-        <div className="hidden">
+        <div className={`flex gap-4  ${vision?"block":"hidden"}`}>
           <button className="flex justify-center items-center gap-2">
             <img className=" w-[16px]h-[16px]" src={newPost} /> New Post
           </button>

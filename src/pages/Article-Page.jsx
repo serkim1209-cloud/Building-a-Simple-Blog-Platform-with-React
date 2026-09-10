@@ -5,7 +5,8 @@ import useGetApi from "../custom-hook/useGetApi";
 import Button from "../components/button/button";
 
 function Article() {
-  const profile = localStorage.getItem("username");
+  const profile = localStorage.getItem("name");
+  const vision = localStorage.getItem("vision")
   const { slug } = useParams();
   const {
     data: article,
@@ -57,7 +58,7 @@ function Article() {
            
             ))}
           </div>
-          <div className="flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] hidden">
+          <div className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${vision ?"":"hidden"}`}>
             <div className="flex items-center justify-center gap-3 w-auto h-[36px]">
               <img className="w-[16px] h-[16px]" src={Profile} />
               <div>
