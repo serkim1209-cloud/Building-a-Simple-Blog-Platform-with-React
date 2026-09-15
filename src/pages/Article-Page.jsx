@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 import Profile from "../assets/Profile.svg";
 import useGetApi from "../custom-hook/useGetApi";
@@ -6,12 +6,11 @@ import Button from "../components/button/button";
 
 function Article() {
   const profile = localStorage.getItem("name");
-  const vision = localStorage.getItem("vision")
   const { slug } = useParams();
   const {
     data: article,
     load,
-    error:isArticleError,
+    error: isArticleError,
   } = useGetApi(`https://realworld.habsida.net/api/articles/${slug}`);
   const articl = article?.article || [];
 
@@ -24,7 +23,11 @@ function Article() {
       >
         <div className=" flex justify-center items-center w-full min-h-[282px] bg-[#333333]">
           <div>
-            {isArticleError&& <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>}
+            {isArticleError && (
+              <h1 className="text-[35px] text-red-500">
+                Произошла ошибка загрузки
+              </h1>
+            )}
             <h1 className="font-semibold text-[46px] text-[#FFFFFF] ">
               {articl.title}
             </h1>
@@ -54,11 +57,16 @@ function Article() {
           </p>
           <div className="flex gap-2">
             {articl.tagList?.map((tag) => (
-              <Button key={tag} text={tag} className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]" />
-           
+              <Button
+                key={tag}
+                text={tag}
+                className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"
+              />
             ))}
           </div>
-          <div className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${vision ?"":"hidden"}`}>
+          <div
+            className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${profile ? "" : "hidden"}`}
+          >
             <div className="flex items-center justify-center gap-3 w-auto h-[36px]">
               <img className="w-[16px] h-[16px]" src={Profile} />
               <div>
@@ -73,11 +81,17 @@ function Article() {
               </div>
             </div>
             <div className="flex gap-[8px]">
+              <Link to={`/article/${slug}/edit`}>
+                <Button
+                  text="Edit"
+                  className=" w-[54px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
+                />
+              </Link>
+
               <Button
-                text="Edit"
-                className=" w-[54px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
+                text="Delete"
+                className="w-[67px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
               />
-              <Button text="Delete" className="w-[67px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"/>
             </div>
           </div>
         </div>

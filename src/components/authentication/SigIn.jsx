@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function SigIn() {
+function SigIn({setVision}) {
+   
   const navigate = useNavigate()
   const[error,setError]=useState("")
   const[dataForm,setDataForm]=useState({
@@ -31,13 +32,12 @@ function SigIn() {
    
    const data =await response.json()
    if(response.ok){
-  localStorage.setItem("vision",true)
   localStorage.setItem("token",data.user.token)
   localStorage.setItem("name",data.user.username)
+  setVision(true)
   navigate("/")
    }
    else{
-    localStorage.setItem("vision",false)
     setError("Неверный пароль или логин")
    }
  

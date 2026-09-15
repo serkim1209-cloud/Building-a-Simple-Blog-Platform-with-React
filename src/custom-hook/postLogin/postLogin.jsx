@@ -36,7 +36,7 @@ function useLogin(url) {
         const data = await response.json();
         if (response.ok) {
           localStorage.setItem("token", data.user.token);
-          
+
           navigate("/");
         } else {
           localStorage.setItem("vision", false);
@@ -45,12 +45,16 @@ function useLogin(url) {
         setError(error.message);
       }
     };
+    if (user.password.length < 3 || user.password.length > 40) {
+      alert("Длина пароля должна составлять от 6 до 40 символов.");
+      return;
+    }
     if (user.password !== user.repeatpassword) {
-      alert("Пароли не совподают");
+      alert("Пароли не совподают.");
       return;
     }
     if (user.username.length < 3 || user.username.length > 20) {
-      alert("Имя должно быть не менее 3 символов и не более 20 символов");
+      alert("Имя должно быть не менее 3 символов и не более 20 символов.");
       return;
     }
     post();
