@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 import Profile from "../assets/Profile.svg";
 import useGetApi from "../custom-hook/useGetApi";
-import Button from "../components/button/button";
+import Button from "../components/button/Button";
 
 function Article() {
   const profile = localStorage.getItem("name");

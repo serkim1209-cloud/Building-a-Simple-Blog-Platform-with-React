@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import user from "../../assets/user.svg";
 import like from "../../assets/like.svg";
-import Button from "../button/button";
+import Button from "../button/Button";
 
 function Article({
   isArticles=[]

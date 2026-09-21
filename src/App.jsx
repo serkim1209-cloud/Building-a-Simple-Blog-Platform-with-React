@@ -1,34 +1,40 @@
-import { BrowserRouter, Route, Routes,} from "react-router-dom";
-import { lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./components/privateRouter/PrivateRoute";
+import { lazy, createContext, useState, Suspense } from "react";
 import Main from "./pages/Main-Page";
 import Layout from "./components/layout/Layout";
 import "./App.css";
+import Loading from "./components/loading/Loading";
+
 const Article = lazy(() => import("./pages/Article-Page"));
-const LogInForm = lazy(() => import("./components/authentication/SignUp"));
-const SigIn = lazy(() => import("./components/authentication/SigIn"));
-const Profile =lazy(()=>import("./components/profile/profile"));
-const CreateArticle =lazy(()=>import("./components/createAticle/createArticl"))
-const EditArticl =lazy(()=>import("./components/editArticle/editArticle"))
-import { useState } from "react";
+const LogInForm = lazy(() => import("./pages/SignUp-Page"));
+const SigIn = lazy(() => import("./pages/SigIn-Page"));
+const Profile = lazy(() => import("./components/profile/profile"));
+const NewArticle = lazy(() => import("./pages/New-Article-Pages"));
+const EditArticl = lazy(() => import("./pages/EditArticle-Pages"));
+export const AuthoContext = createContext({});
 
 function App() {
-  const[vision,setVision]=useState(true);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout vision={vision} setVision={setVision} />}>
-            <Route index element={<Main vision={vision} />} />
-            <Route path="articles/:slug" element={<Article />} />
-            <Route path="sigIn" element={<SigIn setVision={setVision} />} />
-            <Route path="signup" element={<LogInForm />} />
-            <Route path="profile" element={<Profile/>} />
-            <Route path="new-article" element={<CreateArticle/>} />
-            <Route path="/article/:slug/edit" element={<EditArticl/>} />
-          </Route>
-          
-        </Routes>
-      </BrowserRouter>
+      <AuthoContext.Provider value={{ token, setToken }}>
+        <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Main />} />
+                <Route path="articles/:slug" element={<Article />} />
+                <Route path="sign-in" element={<SigIn />} />
+                <Route path="sign-up" element={<LogInForm />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="new-article" element={<NewArticle />} />
+                  <Route path="article/:slug/edit" element={<EditArticl />} />
+                </Route>
+              </Route>
+            </Routes>
+        </BrowserRouter>
+      </AuthoContext.Provider>
     </>
   );
 }

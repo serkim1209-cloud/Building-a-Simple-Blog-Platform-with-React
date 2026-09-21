@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Button from "../button/button";
+import { useState } from "react";
+import Button from "../components/button/Button";
 
-function EditArticl() {
-  const navigate = useNavigate();
-  const name = localStorage.getItem("name");
-  const { slug } = useParams();
+function NewArticle() {
   const token = localStorage.getItem("token");
   const [error, setError] = useState("");
   const [articl, setArticl] = useState({
@@ -14,35 +10,6 @@ function EditArticl() {
     body: "",
     tagList: "",
   });
-  useEffect(() => {
-    const getArticl = async () => {
-      try {
-        const getresponse = await fetch(
-          `https://realworld.habsida.net/api/articles/${slug}`,
-        );
-        if (!getresponse.ok) {
-          throw new Error("Не удалось загрузить статью с сервера");
-        }
-        const getdata = await getresponse.json();
-        if (getdata.article.author.username !== name) {
-          alert("Вы не можете редактировать чужую статью");
-          navigate("/");
-          return;
-        }
-
-        setArticl({
-          title: getdata.article.title,
-          description: getdata.article.description,
-          body: getdata.article.body,
-          tagList: getdata.article.tagList ? getdata.article.tagList.join(", ") : "",
-           
-        });
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    getArticl();
-  }, [slug]);
 
   const hendleChange = (e) => {
     const { name, value } = e.target;
@@ -64,9 +31,9 @@ function EditArticl() {
     const post = async () => {
       try {
         const response = await fetch(
-          `https://realworld.habsida.net/api/articles/${slug}`,
+          "https://realworld.habsida.net/api/articles",
           {
-            method: "PUT",
+            method: "POST",
             headers: {
               "Content-type": "application/json",
               Authorization: `Token ${token}`,
@@ -76,7 +43,7 @@ function EditArticl() {
                 title: articl.title,
                 description: articl.description,
                 body: articl.body,
-                tagList: articl.tagList.split(",").map((tag) => tag.trim()),
+                tagList: articl.tagList.split(",").map((tag)=>tag.trim())
               },
             }),
           },
@@ -85,7 +52,6 @@ function EditArticl() {
         if (!response.ok) {
           throw new Error(JSON.stringify(data.errors));
         }
-
         alert("Статья успешно добавлена!");
       } catch (error) {
         setError(error.message);
@@ -99,7 +65,6 @@ function EditArticl() {
         className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
         onSubmit={PostingArticle}
       >
-        {error && <h1>{error}</h1>}
         <input
           type="text"
           name="title"
@@ -132,9 +97,10 @@ function EditArticl() {
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
-        <Button type="submit" text="Add Article" />
+         <Button type="submit" text="Add Article" />
       </form>
+     
     </div>
   );
 }
-export default EditArticl;
+export default NewArticle;

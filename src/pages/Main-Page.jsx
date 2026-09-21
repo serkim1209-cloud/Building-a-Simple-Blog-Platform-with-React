@@ -4,7 +4,7 @@ import "swiper/css";
 import Article from "../components/article/Article";
 import Header from "../components/header/Header";
 import useGetApi from "../custom-hook/useGetApi";
-import Pagination from "../components/pagination/pagination";
+import Pagination from "../components/pagination/Pagination";
 function Main() {
   const [page, setPage] = useState(1);
   const limit = 3;
