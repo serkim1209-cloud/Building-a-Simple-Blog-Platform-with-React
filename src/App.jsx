@@ -6,10 +6,10 @@ import Layout from "./components/layout/Layout";
 import "./App.css";
 import Loading from "./components/loading/Loading";
 
-const Article = lazy(() => import("./pages/Article-Page"));
+const Article = lazy(() => import("./pages/Articles-Page"));
 const LogInForm = lazy(() => import("./pages/SignUp-Page"));
 const SigIn = lazy(() => import("./pages/SigIn-Page"));
-const Profile = lazy(() => import("./components/profile/profile"));
+const Profile = lazy(() => import("./components/profile/Profile"));
 const NewArticle = lazy(() => import("./pages/New-Article-Pages"));
 const EditArticl = lazy(() => import("./pages/EditArticle-Pages"));
 export const AuthoContext = createContext({});

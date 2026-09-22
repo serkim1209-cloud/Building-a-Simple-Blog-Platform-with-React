@@ -1,102 +1,56 @@
-import { Link, useParams } from "react-router-dom";
-import Loading from "../components/loading/Loading";
-import Profile from "../assets/Profile.svg";
-import useGetApi from "../custom-hook/useGetApi";
+
+import { Link } from "react-router-dom";
+import user from "../assets/user.svg";
+import like from "../assets/like.svg";
 import Button from "../components/button/Button";
 
-function Article() {
-  const profile = localStorage.getItem("name");
-  const { slug } = useParams();
-  const {
-    data: article,
-    load,
-    error: isArticleError,
-  } = useGetApi(`https://realworld.habsida.net/api/articles/${slug}`);
-  const articl = article?.article || [];
+function Article({
+  isArticles=[]
 
+}) {
   return (
-    <>
-      {load && <Loading />}
-      <div
-        key={articl.slug}
-        className="flex flex-col items-center justify-center max-w-[1280px] min-h-[772px] gap-[24px]"
-      >
-        <div className=" flex justify-center items-center w-full min-h-[282px] bg-[#333333]">
-          <div>
-            {isArticleError && (
-              <h1 className="text-[35px] text-red-500">
-                Произошла ошибка загрузки
+    <div>
+ {isArticles.map((article) => (
+        <div
+          key={article.slug}
+          className=" w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA]"
+        >
+          <div className="flex items-center justify-between  h-[36px]">
+            <img className="pr-2 w-[34px] h-[34px] " src={user} />
+            <div className="mr-auto">
+              <h1 className="font-semibold text-[16px] text-[#5CB85C] ">
+                {article.author.username}
               </h1>
-            )}
-            <h1 className="font-semibold text-[46px] text-[#FFFFFF] ">
-              {articl.title}
-            </h1>
-            <div className="flex items-center justify-between  h-[36px]">
-              <img
-                className="pr-2 w-[34px] h-[34px] "
-                src="/src/assets/user.svg"
-              />
-              <div className="mr-auto">
-                <h1 className="font-semibold text-[16px] text-[#5CB85C] ">
-                  {articl.author?.username}
-                </h1>
-                <p className="text-[#AAAAAA] text-[12.8px] ">
-                  {new Date(articl.createdAt).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
+              <p className="text-[#AAAAAA] text-[12.8px] ">
+                {new Date(article.createdAt).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
+            <div className="flex w-[77px] h-[40px] items-center justify-center justify-evenly rounded-xl border-1 border-[#5CB85C] ">
+              <div>
+                <img src={like} />
               </div>
+              {article.favoritesCount}
             </div>
           </div>
-        </div>
-        <div className="flex flex-col max-w-[844px] min-h-[244px] gap-[24px]">
-          <p className="font-Regular text-[16px] text-[#333333] ">
-            {articl.body}
-          </p>
+          <Link to={`articles/${article.slug}`}>
+            <h1 className="font-semibold text-[32px] ">{article.title}</h1>
+            <p className="font-Regular text-[16px] text-[#AAAAAA] ">
+              {article.body}
+            </p>
+          </Link>
           <div className="flex gap-2">
-            {articl.tagList?.map((tag) => (
-              <Button
-                key={tag}
-                text={tag}
-                className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"
-              />
+            {article.tagList.map((tag) => (
+                <Button key={tag} text={tag} className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"/>
+        
             ))}
           </div>
-          <div
-            className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${profile ? "" : "hidden"}`}
-          >
-            <div className="flex items-center justify-center gap-3 w-auto h-[36px]">
-              <img className="w-[16px] h-[16px]" src={Profile} />
-              <div>
-                <h1>{profile}</h1>
-                <div className="flex font-regular text-[#AAAAAA] text-[12.8px]">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-[8px]">
-              <Link to={`/article/${slug}/edit`}>
-                <Button
-                  text="Edit"
-                  className=" w-[54px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
-                />
-              </Link>
-
-              <Button
-                text="Delete"
-                className="w-[67px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
-              />
-            </div>
-          </div>
         </div>
-      </div>
-    </>
-  );
+      ))}
+</div>
+  )
 }
 export default Article;

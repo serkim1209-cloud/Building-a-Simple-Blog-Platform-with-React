@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Button from "../components/button/Button";
+import { useContext } from "react";
+import { AuthoContext } from "../App";
 
 function NewArticle() {
-  const token = localStorage.getItem("token");
+  const{token}=useContext(AuthoContext)
   const [error, setError] = useState("");
   const [articl, setArticl] = useState({
     title: "",
@@ -29,14 +31,15 @@ function NewArticle() {
       return;
     }
     const post = async () => {
+      console.log(token)
       try {
         const response = await fetch(
           "https://realworld.habsida.net/api/articles",
           {
             method: "POST",
             headers: {
-              "Content-type": "application/json",
-              Authorization: `Token ${token}`,
+              "Content-Type": "application/json",
+              "Authorization": `Token ${token}`,
             },
             body: JSON.stringify({
               article: {
@@ -50,7 +53,7 @@ function NewArticle() {
         );
         const data = await response.json();
         if (!response.ok) {
-          throw new Error(JSON.stringify(data.errors));
+          throw new Error(data.errors);
         }
         alert("Статья успешно добавлена!");
       } catch (error) {

@@ -32,7 +32,7 @@ function Navigation() {
           </button>
           <button className="flex justify-center items-center gap-2">
             <img className=" w-[16px]h-[16px]" src={Profile} />
-            <Link to="profile"></Link>
+            <Link to="profile">Profile</Link>
           </button>
           <button onClick={()=>{setToken("");localStorage.clear()}}>log out</button>
         </div>

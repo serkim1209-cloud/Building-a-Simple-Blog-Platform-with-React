@@ -69,7 +69,7 @@ function EditArticl() {
             method: "PUT",
             headers: {
               "Content-type": "application/json",
-              Authorization: `Token ${token}`,
+              "Authorization": `Token ${token}`,
             },
             body: JSON.stringify({
               article: {

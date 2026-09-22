@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Loading from "../components/loading/Loading";
 import "swiper/css";
-import Article from "../components/article/Article";
+import Article from "./Article-Page";
 import Header from "../components/header/Header";
 import useGetApi from "../custom-hook/useGetApi";
 import Pagination from "../components/pagination/Pagination";
