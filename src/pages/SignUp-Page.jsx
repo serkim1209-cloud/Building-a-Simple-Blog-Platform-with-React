@@ -1,9 +1,7 @@
-import useSignUp from "../components/api-reguests/post-api-signUp";
+import useSignUp from "../api-reguests/post-api-signUp";
 
 function LoginForm() {
-  const { register, errors, handleSubmit, post, watch } = useSignUp(
-    "https://realworld.habsida.net/api/users",
-  );
+  const { register, errors, handleSubmit, post, watch } = useSignUp();
 
   const onSubmit = (data) => {
     const { repeatPassword, ...restUsers } = data;

@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/button/Button";
 
-function EditArticl() {
+function EditArticle() {
   const navigate = useNavigate();
   const name = localStorage.getItem("name");
   const { slug } = useParams();
   const token = localStorage.getItem("token");
   const [error, setError] = useState("");
-  const [articl, setArticl] = useState({
+  const [article, setArticle] = useState({
     title: "",
     description: "",
     body: "",
     tagList: "",
   });
   useEffect(() => {
-    const getArticl = async () => {
+    const getArticle = async () => {
       try {
         const getresponse = await fetch(
           `https://realworld.habsida.net/api/articles/${slug}`,
@@ -30,7 +30,7 @@ function EditArticl() {
           
         }
 
-        setArticl({
+        setArticle({
           title: getdata.article.title,
           description: getdata.article.description,
           body: getdata.article.body,
@@ -41,22 +41,22 @@ function EditArticl() {
         setError(error.message);
       }
     };
-    getArticl();
+    getArticle();
   }, [slug]);
 
   const hendleChange = (e) => {
     const { name, value } = e.target;
-    setArticl({ ...articl, [name]: value });
+    setArticle({ ...articl, [name]: value });
   };
 
   const PostingArticle = (e) => {
     e.preventDefault();
     setError("");
     if (
-      articl.title.trim().length === 0 ||
-      articl.description.trim().length === 0 ||
-      articl.body.trim().length === 0 ||
-      articl.tagList.trim().length === 0
+      article.title.trim().length === 0 ||
+      article.description.trim().length === 0 ||
+      article.body.trim().length === 0 ||
+      article.tagList.trim().length === 0
     ) {
       alert("Все поля должны быть заполнены");
       return;
@@ -73,10 +73,10 @@ function EditArticl() {
             },
             body: JSON.stringify({
               article: {
-                title: articl.title,
-                description: articl.description,
-                body: articl.body,
-                tagList: articl.tagList.split(",").map((tag) => tag.trim()),
+                title: article.title,
+                description: article.description,
+                body: article.body,
+                tagList: article.tagList.split(",").map((tag) => tag.trim()),
               },
             }),
           },
@@ -103,7 +103,7 @@ function EditArticl() {
         <input
           type="text"
           name="title"
-          value={articl.title}
+          value={article.title}
           onChange={hendleChange}
           placeholder="title"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
@@ -111,7 +111,7 @@ function EditArticl() {
         <input
           type="text"
           name="description"
-          value={articl.description}
+          value={article.description}
           onChange={hendleChange}
           placeholder="description"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
@@ -119,7 +119,7 @@ function EditArticl() {
         <input
           type="text"
           name="body"
-          value={articl.body}
+          value={article.body}
           onChange={hendleChange}
           placeholder="body"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
@@ -127,7 +127,7 @@ function EditArticl() {
         <input
           type="text"
           name="tagList"
-          value={articl.tagList}
+          value={article.tagList}
           onChange={hendleChange}
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
@@ -137,4 +137,4 @@ function EditArticl() {
     </div>
   );
 }
-export default EditArticl;
+export default EditArticle;

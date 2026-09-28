@@ -3,11 +3,11 @@ import Profile from "../../assets/Profile.svg";
 import settings from "../../assets/settings.svg";
 import newPost from "../../assets/New post.svg";
 import { useContext } from "react";
-import { AuthoContext } from "../../App";
+import { Context } from "../Private-Context.jsx/Private-Context";
 
 
 function Navigation() {
- const {token,setToken}=useContext(AuthoContext);
+ const {token,setToken,name}=useContext(Context);
  
   return (
     <div className="flex items-center justify-center max-w-[1280px] h-[54px] ">
@@ -32,7 +32,7 @@ function Navigation() {
           </button>
           <button className="flex justify-center items-center gap-2">
             <img className=" w-[16px]h-[16px]" src={Profile} />
-            <Link to="profile">Profile</Link>
+            <Link to="profile">{name}</Link>
           </button>
           <button onClick={()=>{setToken("");localStorage.clear()}}>log out</button>
         </div>

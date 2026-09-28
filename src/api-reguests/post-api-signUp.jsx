@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-function useSignUp(url) {
+function useSignUp() {
   const navigate = useNavigate();
 
   const {
@@ -14,7 +14,7 @@ function useSignUp(url) {
 
   const post = async (users) => {
     try {
-      const response = await fetch(url, {
+      const response = await fetch("https://realworld.habsida.net/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

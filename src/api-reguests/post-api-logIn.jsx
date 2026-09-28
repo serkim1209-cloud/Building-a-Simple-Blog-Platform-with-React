@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
-import { AuthoContext } from "../../App";
+import { Context } from "../components/Private-Context.jsx/Private-Context";
 import { useNavigate } from "react-router-dom";
 
-function useLogin(url) {
+function useLogin() {
   const [error, setError] = useState("");
-  const { setToken } = useContext(AuthoContext);
+  const { setToken, setName } = useContext(Context);
   const navigate = useNavigate();
 
   const post = async (data) => {
     try {
-      const response = await fetch(url, {
+      const response = await fetch( "https://realworld.habsida.net/api/users/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -22,11 +22,12 @@ function useLogin(url) {
       const resData = await response.json();
 
       if (!response.ok) {
-       throw new Error("Неверный пароль или логин");
+        throw new Error("Неверный пароль или логин");
       } else {
         localStorage.setItem("token", resData.user.token);
         localStorage.setItem("name", resData.user.username);
         setToken(localStorage.getItem("token"));
+        setName(localStorage.getItem("name"));
         navigate("/");
       }
     } catch (erro) {

@@ -1,10 +1,8 @@
-import useLogin from "../components/api-reguests/post-api-login";
+import useLogin from "../api-reguests/post-api-login";
 import { useForm } from "react-hook-form";
 function SigIn() {
   const { register, handleSubmit } = useForm();
-  const { error, post } = useLogin(
-    "https://realworld.habsida.net/api/users/login",
-  );
+  const { error, post } = useLogin();
 
   return (
     <div className="flex items-center justify-center">

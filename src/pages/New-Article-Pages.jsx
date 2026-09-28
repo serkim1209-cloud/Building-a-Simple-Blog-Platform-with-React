@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Button from "../components/button/Button";
 import { useContext } from "react";
-import { AuthoContext } from "../App";
+import { Context } from "../components/Private-Context.jsx/Private-Context";
 
 function NewArticle() {
-  const{token}=useContext(AuthoContext)
+  const{token}=useContext(Context)
   const [error, setError] = useState("");
   const [articl, setArticl] = useState({
     title: "",
