@@ -7,7 +7,7 @@ import { lazy } from "react";
 import Main from "./pages/Main-Page";
 import Layout from "./components/layout/Layout";
 import "./App.css";
-import { PrivateContext } from "./components/Private-Context.jsx/Private-Context";
+import { PrivateContext } from "./components/privateContext/Private-Context";
 const Article = lazy(() => import("./pages/Articles-Page"));
 const LogInForm = lazy(() => import("./pages/SignUp-Page"));
 const SigIn = lazy(() => import("./pages/SigIn-Page"));

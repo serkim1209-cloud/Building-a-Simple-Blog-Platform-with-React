@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
-import { Context } from "../Private-Context.jsx/Private-Context";
+import { Context } from "../privateContext/Private-Context";
 
 export function PrivateRoute() {
   const { token } = useContext(Context);
