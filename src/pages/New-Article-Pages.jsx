@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Button from "../components/button/Button";
 import { useContext } from "react";
-import { Context } from "../components/Private-Context.jsx/Private-Context";
+import { Context } from "../components/publicContext/Public-Context";
+import { useNavigate } from "react-router-dom";
 
 function NewArticle() {
+  const navigate = useNavigate();
   const{token}=useContext(Context)
   const [error, setError] = useState("");
   const [articl, setArticl] = useState({
@@ -56,6 +58,7 @@ function NewArticle() {
           throw new Error(data.errors);
         }
         alert("Статья успешно добавлена!");
+       navigate("/")
       } catch (error) {
         setError(error.message);
       }
@@ -63,9 +66,9 @@ function NewArticle() {
     post();
   };
   return (
-    <div className="flex items-center justify-center">
-      <form
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
+    <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
+      <form id="addForm"
+        className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
         onSubmit={PostingArticle}
       >
         <input
@@ -100,9 +103,12 @@ function NewArticle() {
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
-         <Button type="submit" text="Add Article" />
+         
       </form>
-     
+     <div className="flex gap-[10px]">
+         <Button type="submit" form="addForm" text="Add Article"  className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]" />
+        <Button onClick={()=>navigate("/")} text="Canceled" className=" w-[90px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"/>
+    </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Profile from "../../assets/Profile.svg";
 import settings from "../../assets/settings.svg";
 import newPost from "../../assets/New post.svg";
 import { useContext } from "react";
-import { Context } from "../privateContext/Private-Context";
+import { Context } from "../publicContext/Public-Context";
 
 
 function Navigation() {

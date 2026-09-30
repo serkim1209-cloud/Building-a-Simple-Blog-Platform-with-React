@@ -61,6 +61,7 @@ function EditArticle() {
       alert("Все поля должны быть заполнены");
       return;
     }
+  
     const post = async () => {
       try {
         const response = await fetch(
@@ -86,7 +87,8 @@ function EditArticle() {
           throw new Error(JSON.stringify(data.errors));
         }
 
-        alert("Статья успешно добавлена!");
+        alert("Статья успешно изменена!");
+        navigate("/")
       } catch (error) {
         setError(error.message);
       }
@@ -94,9 +96,9 @@ function EditArticle() {
     post();
   };
   return (
-    <div className="flex items-center justify-center">
-      <form
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
+    <div className="flex flex-col  items-center justify-center w-auto min-h-[538px] gap-[10px]">
+      <form id ="myForm"
+        className="flex flex-col items-center justify-center max-w-[500px] h-auto gap-[10px]"
         onSubmit={PostingArticle}
       >
         {error && <h1>{error}</h1>}
@@ -132,9 +134,16 @@ function EditArticle() {
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
-        <Button type="submit" text="Add Article" />
+        
+       
+        
       </form>
+      <div className="flex gap-[10px]">
+         <Button type="submit" form="myForm" text="Edit Article"  className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]" />
+        <Button onClick={()=>navigate(-1)} text="Canceled" className=" w-[90px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"/>
     </div>
+    </div>
+      
   );
 }
 export default EditArticle;

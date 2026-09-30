@@ -1,7 +1,11 @@
 import useLogin from "../api-reguests/post-api-login";
 import { useForm } from "react-hook-form";
 function SigIn() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
   const { error, post } = useLogin();
 
   return (
@@ -15,16 +19,27 @@ function SigIn() {
         </div>
 
         {error && <h1 className="text-red-500 font-bold">{error}</h1>}
+        {errors.email && <p>{errors.email.message}</p>}
+        {errors.password && <p>{errors.password.message}</p>}
 
         <input
-          {...register("email")}
+          {...register("email", {
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Введите корректный email",
+            },
+          })}
           className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
           type="text"
           placeholder="Email"
         />
 
         <input
-          {...register("password")}
+          {...register("password", {
+            validate: (value) =>
+              (value.length >= 8 && value.length <= 40) ||
+              "Пароль не может быть меньше 8 и не больше 40 символов",
+          })}
           className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
           type="password"
           placeholder="Password"

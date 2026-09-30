@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Context } from "../components/Private-Context.jsx/Private-Context";
+import { Context } from "../components/publicContext/Public-Context";
 import { useNavigate } from "react-router-dom";
 
 function useLogin() {
