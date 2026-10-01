@@ -26,5 +26,3 @@ function useGetApi(url) {
   return { data, load, error };
 }
 export default useGetApi;
-
-

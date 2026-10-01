@@ -4,7 +4,7 @@ function SigIn() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
   const { error, post } = useLogin();
 

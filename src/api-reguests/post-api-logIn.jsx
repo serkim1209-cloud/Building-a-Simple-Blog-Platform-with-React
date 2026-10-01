@@ -9,15 +9,18 @@ function useLogin() {
 
   const post = async (data) => {
     try {
-      const response = await fetch( "https://realworld.habsida.net/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const response = await fetch(
+        "https://realworld.habsida.net/api/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            user: data,
+          }),
         },
-        body: JSON.stringify({
-          user: data,
-        }),
-      });
+      );
 
       const resData = await response.json();
 

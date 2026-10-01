@@ -17,9 +17,7 @@ function Main() {
   } = useGetApi(
     `https://realworld.habsida.net/api/articles?offset=${offset}&limit=${limit}`,
   );
-  const {
-    data: tag,
-  } = useGetApi("https://realworld.habsida.net/api/tags");
+  const { data: tag } = useGetApi("https://realworld.habsida.net/api/tags");
   const articles = articl?.articles || [];
   const tags = tag?.tags || [];
   const totalPages = Math.ceil((articl?.articlesCount || 0) / limit);
@@ -42,7 +40,9 @@ function Main() {
           ))}
         </div>
       </div>
-      {isArticlError&& <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>}
+      {isArticlError && (
+        <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>
+      )}
       <Article isArticles={articles} />
       <Pagination page={page} setPage={setPage} totalPages={totalPages} />
     </main>

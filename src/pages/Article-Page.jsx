@@ -1,19 +1,15 @@
-
 import { Link } from "react-router-dom";
 import user from "../assets/user.svg";
 import like from "../assets/like.svg";
 import Button from "../components/button/Button";
 
-function Article({
-  isArticles=[]
-
-}) {
+function Article({ isArticles = [] }) {
   return (
     <div>
- {isArticles.map((article) => (
+      {isArticles.map((article) => (
         <div
           key={article.slug}
-          className=" w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA]"
+          className=" w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA] hover:bg-green-500/50"
         >
           <div className="flex items-center justify-between  h-[36px]">
             <img className="pr-2 w-[34px] h-[34px] " src={user} />
@@ -44,13 +40,16 @@ function Article({
           </Link>
           <div className="flex gap-2">
             {article.tagList.map((tag) => (
-                <Button key={tag} text={tag} className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"/>
-        
+              <Button
+                key={tag}
+                text={tag}
+                className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"
+              />
             ))}
           </div>
         </div>
       ))}
-</div>
-  )
+    </div>
+  );
 }
 export default Article;
