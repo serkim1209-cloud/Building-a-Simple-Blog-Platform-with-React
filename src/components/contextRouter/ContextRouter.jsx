@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const Context = createContext();
 
-export function PublicContext({ children }) {
+export function ContextRoute({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [name, setName] = useState(localStorage.getItem("name"));
   return (

@@ -1,18 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 function useSignUp() {
   const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    setError,
-    watch,
-    formState: { errors },
-  } = useForm();
-
+  const [error, setError] = useState("");
   const post = async (users) => {
+    setError("");
     try {
       const response = await fetch("https://realworld.habsida.net/api/users", {
         method: "POST",
@@ -44,7 +37,7 @@ function useSignUp() {
     }
   };
 
-  return { register, errors, setError, handleSubmit, post, watch };
+  return { error, setError, post };
 }
 
 export default useSignUp;

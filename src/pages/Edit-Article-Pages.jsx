@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/button/Button";
 import { useForm } from "react-hook-form";
+import { Context } from "../components/contextRouter/ContextRouter";
 
 function EditArticle() {
   const {
@@ -10,10 +11,9 @@ function EditArticle() {
     setValue,
     formState: { errors },
   } = useForm();
+  const { name, token } = useContext(Context);
   const navigate = useNavigate();
-  const name = localStorage.getItem("name");
   const { slug } = useParams();
-  const token = localStorage.getItem("token");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -85,14 +85,7 @@ function EditArticle() {
         onSubmit={handleSubmit(onSubmit)}
       >
         {error && <p className="text-red-500">{error}</p>}
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        {errors.description && (
-          <p className="text-red-500"> {errors.description.message} </p>
-        )}
-        {errors.body && <p className="text-red-500">{errors.body.message}</p>}
-        {errors.tagList && (
-          <p className="text-red-500"> {errors.tagList.message} </p>
-        )}
+
         <input
           {...register("title", {
             validate: (value) =>
@@ -102,6 +95,7 @@ function EditArticle() {
           placeholder="title"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-text pl-5 placeholder:text-[16px]  "
         />
+        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         <input
           {...register("description", {
             validate: (value) =>
@@ -111,6 +105,9 @@ function EditArticle() {
           placeholder="description"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-text pl-5 placeholder:text-[16px]  "
         />
+        {errors.description && (
+          <p className="text-red-500"> {errors.description.message} </p>
+        )}
         <input
           {...register("body", {
             validate: (value) =>
@@ -120,6 +117,7 @@ function EditArticle() {
           placeholder="body"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-text pl-5 placeholder:text-[16px]  "
         />
+        {errors.body && <p className="text-red-500">{errors.body.message}</p>}
         <input
           {...register("tagList", {
             validate: (value) =>
@@ -129,6 +127,9 @@ function EditArticle() {
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-text pl-5 placeholder:text-[16px]  "
         />
+        {errors.tagList && (
+          <p className="text-red-500"> {errors.tagList.message} </p>
+        )}
       </form>
       <div className="flex gap-[10px]">
         <Button

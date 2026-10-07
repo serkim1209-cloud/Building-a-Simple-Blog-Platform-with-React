@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Loading from "../components/loading/Loading";
 import "swiper/css";
-import Article from "./Article-Page";
+import Article from "./Articles-Page";
 import Header from "../components/header/Header";
 import useGetApi from "../custom-hook/useGetApi";
 import Pagination from "../components/pagination/Pagination";
@@ -12,15 +12,15 @@ function Main() {
 
   const {
     load: loading,
-    error: isArticlError,
-    data: articl,
+    error: ArticleError,
+    data: article,
   } = useGetApi(
     `https://realworld.habsida.net/api/articles?offset=${offset}&limit=${limit}`,
   );
   const { data: tag } = useGetApi("https://realworld.habsida.net/api/tags");
-  const articles = articl?.articles || [];
+  const articles = article?.articles || [];
   const tags = tag?.tags || [];
-  const totalPages = Math.ceil((articl?.articlesCount || 0) / limit);
+  const totalPages = Math.ceil((article?.articlesCount || 0) / limit);
 
   return (
     <main className="flex relative items-center flex-col max-w-[1280px] min-h-[978px] gap-5 py-5">
@@ -40,10 +40,10 @@ function Main() {
           ))}
         </div>
       </div>
-      {isArticlError && (
+      {ArticleError && (
         <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>
       )}
-      <Article isArticles={articles} />
+      <Article Articles={articles} />
       <Pagination page={page} setPage={setPage} totalPages={totalPages} />
     </main>
   );

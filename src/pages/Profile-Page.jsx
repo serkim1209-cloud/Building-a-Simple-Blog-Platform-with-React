@@ -1,9 +1,14 @@
 import Button from "../components/button/button";
 import useEditProfile from "../api-reguests/post-api-edit-profile";
+import { useForm } from "react-hook-form";
 
 function Profile() {
-  const { register, handleSubmit, navigate, user, errors, error, putProfile } =
-    useEditProfile();
+  const { register, handleSubmit,formState:{errors}, setValue } = useForm();
+  const { user, navigate, putProfile, error } = useEditProfile();
+
+  setValue("username",user?.username);
+  setValue("email",user?.email);
+  setValue("bio",user?.bio);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
@@ -13,11 +18,7 @@ function Profile() {
         onSubmit={handleSubmit(putProfile)}
       >
         {error && <p style={{ color: "red" }}>{error}</p>}
-        {errors.username && (
-          <p style={{ color: "red" }}>{errors.username.message}</p>
-        )}
-        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
-        {errors.bio && <p style={{ color: "red" }}>{errors.bio.message}</p>}
+
         <input
           {...register("username", {
             required: "Это поле обязательно для заполнения",
@@ -26,6 +27,9 @@ function Profile() {
           type="text"
           placeholder="Username"
         />
+        {errors.username && (
+          <p style={{ color: "red" }}>{errors.username?.message}</p>
+        )}
 
         <input
           {...register("email", {
@@ -35,6 +39,7 @@ function Profile() {
           type="email"
           placeholder="Email"
         />
+        {errors.email && <p style={{ color: "red" }}>{errors.email?.message}</p>}
         <input
           {...register("bio", {
             required: "Это поле обязательно для заполнения",
@@ -43,6 +48,7 @@ function Profile() {
           type="text"
           placeholder="Bio"
         />
+        {errors.bio && <p style={{ color: "red" }}>{errors.bio?.message}</p>}
       </form>
       <div className="flex items-center justify-center gap-[10px]">
         <Button

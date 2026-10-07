@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../components/button/Button";
 import { useContext } from "react";
-import { Context } from "../components/publicContext/Public-Context";
+import { Context } from "../components/contextRouter/ContextRouter";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -55,32 +55,31 @@ function NewArticle() {
         onSubmit={handleSubmit(onSubmit)}
       >
         {error && <p>{error}</p>}
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        {errors.description && (
-          <p className="text-red-500"> {errors.description.message} </p>
-        )}
-        {errors.body && <p className="text-red-500">{errors.body.message}</p>}
-        {errors.tagList && (
-          <p className="text-red-500"> {errors.tagList.message} </p>
-        )}
+
         <input
           {...register("title", {
             validate: (value) =>
-              value.trim().length === 0 ? "Body не может быть пустым" : true,
+              value.trim().length === 0 ? "Title не может быть пустым" : true,
           })}
           type="text"
           placeholder="title"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
+        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         <input
           {...register("description", {
             validate: (value) =>
-              value.trim().length === 0 ? "Body не может быть пустым" : true,
+              value.trim().length === 0
+                ? "description не может быть пустым"
+                : true,
           })}
           type="text"
           placeholder="description"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
+        {errors.description && (
+          <p className="text-red-500"> {errors.description.message} </p>
+        )}
         <input
           {...register("body", {
             validate: (value) =>
@@ -90,15 +89,19 @@ function NewArticle() {
           placeholder="body"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
+        {errors.body && <p className="text-red-500">{errors.body.message}</p>}
         <input
           {...register("tagList", {
             validate: (value) =>
-              value.trim().length === 0 ? "Body не может быть пустым" : true,
+              value.trim().length === 0 ? "tagList не может быть пустым" : true,
           })}
           type="text"
           placeholder="tagList"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
+        {errors.tagList && (
+          <p className="text-red-500"> {errors.tagList.message} </p>
+        )}
       </form>
       <div className="flex gap-[10px]">
         <Button

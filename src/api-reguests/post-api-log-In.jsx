@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Context } from "../components/publicContext/Public-Context";
+import { Context } from "../components/contextRouter/ContextRouter";
 import { useNavigate } from "react-router-dom";
 
 function useLogin() {
@@ -17,7 +17,10 @@ function useLogin() {
             "Content-type": "application/json",
           },
           body: JSON.stringify({
-            user: data,
+            user:{
+              email:data.email,
+              password:data.password
+            }
           }),
         },
       );

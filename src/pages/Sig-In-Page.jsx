@@ -1,4 +1,4 @@
-import useLogin from "../api-reguests/post-api-login";
+import useLogin from "../api-reguests/post-api-log-In";
 import { useForm } from "react-hook-form";
 function SigIn() {
   const {
@@ -19,11 +19,9 @@ function SigIn() {
         </div>
 
         {error && <h1 className="text-red-500 font-bold">{error}</h1>}
-        {errors.email && <p>{errors.email.message}</p>}
-        {errors.password && <p>{errors.password.message}</p>}
 
         <input
-          {...register("email", {
+          {...register("email", {required:"Введите Email",
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               message: "Введите корректный email",
@@ -33,6 +31,7 @@ function SigIn() {
           type="text"
           placeholder="Email"
         />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
         <input
           {...register("password", {
@@ -44,7 +43,7 @@ function SigIn() {
           type="password"
           placeholder="Password"
         />
-
+        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         <div className="flex justify-end w-[480px] h-[48px]">
           <button
             className="flex items-center justify-center w-[120px] h-[43px] bg-[#61BB61] rounded-[8px] text-[#FFFFFF]"

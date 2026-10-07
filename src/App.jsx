@@ -5,18 +5,18 @@ import { lazy } from "react";
 import Main from "./pages/Main-Page";
 import Layout from "./components/layout/Layout";
 import "./App.css";
-import { PublicContext } from "./components/publicContext/Public-Context";
-const Article = lazy(() => import("./pages/Articles-Page"));
-const LogInForm = lazy(() => import("./pages/SignUp-Page"));
-const SigIn = lazy(() => import("./pages/SigIn-Page"));
+import { ContextRoute } from "./components/contextRouter/ContextRouter";
+const Article = lazy(() => import("./components/article/Article"));
+const SignUp = lazy(() => import("./pages/Sign-Up-Page"));
+const SigIn = lazy(() => import("./pages/Sig-In-Page"));
 const Profile = lazy(() => import("./pages/Profile-Page"));
 const NewArticle = lazy(() => import("./pages/New-Article-Pages"));
-const EditArticle = lazy(() => import("./pages/EditArticle-Pages"));
+const EditArticle = lazy(() => import("./pages/Edit-Article-Pages"));
 
 function App() {
   return (
     <>
-      <PublicContext>
+      <ContextRoute>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -24,18 +24,18 @@ function App() {
               <Route path="articles/:slug" element={<Article />} />
               <Route element={<PublicRoute />}>
                 <Route path="sign-in" element={<SigIn />} />
-                <Route path="sign-up" element={<LogInForm />} />
+                <Route path="sign-up" element={<SignUp />} />
               </Route>
 
               <Route element={<PrivateRoute />}>
                 <Route path="profile" element={<Profile />} />
                 <Route path="new-article" element={<NewArticle />} />
-                <Route path="article/:slug/edit" element={<EditArticle />} />
+                <Route path="articles/:slug/edit" element={<EditArticle />} />
               </Route>
             </Route>
           </Routes>
         </BrowserRouter>
-      </PublicContext>
+      </ContextRoute>
     </>
   );
 }

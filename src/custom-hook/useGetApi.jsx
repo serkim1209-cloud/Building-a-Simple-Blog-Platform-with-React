@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 function useGetApi(url) {
   const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
-    setLoad(true);
+    setIsLoading(true);
     setError("");
     const fetchData = async () => {
       try {
@@ -18,11 +18,11 @@ function useGetApi(url) {
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoad(false);
+        setIsLoading(false);
       }
     };
     fetchData();
   }, [url]);
-  return { data, load, error };
+  return { data, isLoading, error };
 }
 export default useGetApi;

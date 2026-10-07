@@ -1,19 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../components/publicContext/Public-Context";
-import { useForm } from "react-hook-form";
+import { Context } from "../components/contextRouter/ContextRouter";
 
 function useEditProfile() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
-  const { name, token, setName } = useContext(Context);
+  const { name, token,setName } = useContext(Context);
   useEffect(() => {
     const getProfile = async () => {
       try {
@@ -23,21 +16,16 @@ function useEditProfile() {
             Authorization: `Token ${token}`,
           },
         });
-        const result = await response.json();
+        const getResult = await response.json();
         if (!response.ok)
           throw new Error("Произошла ошибка попробуйте ещё раз");
-        const userData = result.user;
-        setUser(userData);
-        setValue("username", userData.username);
-        setValue("email", userData.email);
-        setValue("bio", userData.bio || "");
-        setValue("image", userData.image || "");
+        setUser(getResult.user);
       } catch (error) {
         setError(error.message);
       }
     };
     getProfile();
-  }, [name, setValue, token]);
+  }, [name, token]);
 
   const putProfile = async (data) => {
     try {
@@ -61,13 +49,13 @@ function useEditProfile() {
       if (!profile.ok) {
         throw new Error("Не удалось обновить профиль");
       }
-      setName(data.username);
       localStorage.setItem("name", data.username);
+      if (setName) setName(data.username); 
       navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
-  return { register, handleSubmit, user, navigate, errors, error, putProfile };
+  return { user, navigate, putProfile, error };
 }
 export default useEditProfile;
