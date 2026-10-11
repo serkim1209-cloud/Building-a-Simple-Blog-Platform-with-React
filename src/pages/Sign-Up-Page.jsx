@@ -84,13 +84,16 @@ function LoginForm() {
         {errors.repeatPassword && (
           <p className="text-red-500">{errors.repeatPassword.message}</p>
         )}
-        <p>Согласие на сбор личных данных</p>
-        <input
+        <div className="flex items-center gap-2">
+               <p>Согласие на сбор личных данных</p>
+        <input className="w-5 h-5"
           type="checkbox"
           {...register("checkbox", {
             required: "Нужно согласится справилами сбора данных",
           })}
         />
+        </div>
+   
         {errors.checkbox && (
           <p className="text-red-500">{errors.checkbox.message}</p>
         )}

@@ -35,7 +35,7 @@ function Navigation() {
                 localStorage.clear();
               }}
             >
-              log out
+              Log out
             </button>
           </div>
         ) : (

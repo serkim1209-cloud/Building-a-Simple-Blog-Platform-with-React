@@ -1,8 +1,6 @@
-import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/button/Button";
 import { useForm } from "react-hook-form";
-import { Context } from "../components/contextRouter/ContextRouter";
+import useEditArticle from "../api-reguests/post-api-edit-article";
 
 function EditArticle() {
   const {
@@ -11,71 +9,8 @@ function EditArticle() {
     setValue,
     formState: { errors },
   } = useForm();
-  const { name, token } = useContext(Context);
-  const navigate = useNavigate();
-  const { slug } = useParams();
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const getArticle = async () => {
-      try {
-        const getresponse = await fetch(
-          `https://realworld.habsida.net/api/articles/${slug}`,
-        );
-        if (!getresponse.ok) {
-          throw new Error("Не удалось загрузить статью с сервера");
-        }
-        const getdata = await getresponse.json();
-        if (getdata.article.author.username !== name) {
-          setError("Вы не можете редактировать чужую статью");
-          navigate("/");
-          return;
-        }
-        setValue("title", getdata.article.title);
-        setValue("description", getdata.article.description);
-        setValue("body", getdata.article.body);
-        setValue(
-          "tagList",
-          getdata.article.tagList ? getdata.article.tagList.join(", ") : "",
-        );
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    getArticle();
-  }, [slug]);
-
-  const onSubmit = async (formData) => {
-    try {
-      const response = await fetch(
-        `https://realworld.habsida.net/api/articles/${slug}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-          body: JSON.stringify({
-            article: {
-              title: formData.title,
-              description: formData.description,
-              body: formData.body,
-              tagList: formData.tagList.split(",").map((tag) => tag.trim()),
-            },
-          }),
-        },
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(JSON.stringify(data.errors));
-      }
-
-      alert("Статья успешно изменена!");
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  const { error,navigate, onSubmit } = useEditArticle(setValue);
 
   return (
     <div className="flex flex-col  items-center justify-center w-auto min-h-[538px] gap-[10px]">
@@ -140,7 +75,7 @@ function EditArticle() {
         />
         <Button
           onClick={() => navigate(-1)}
-          text="Canceled"
+          text="Cancel"
           className=" w-[90px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
         />
       </div>

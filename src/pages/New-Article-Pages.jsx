@@ -1,52 +1,16 @@
-import { useState } from "react";
 import Button from "../components/button/Button";
-import { useContext } from "react";
-import { Context } from "../components/contextRouter/ContextRouter";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useNewArticle from "../api-reguests/post-api-new-article";
+
 
 function NewArticle() {
+  const{onSubmit,navigate,error,}=useNewArticle();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
-  const { token } = useContext(Context);
-  const [error, setError] = useState("");
-
-  const onSubmit = async (formData) => {
-    console.log(token);
-    try {
-      const response = await fetch(
-        "https://realworld.habsida.net/api/articles",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-          body: JSON.stringify({
-            article: {
-              title: formData.title,
-              description: formData.description,
-              body: formData.body,
-              tagList: formData.tagList.split(",").map((tag) => tag.trim()),
-            },
-          }),
-        },
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error.message);
-      }
-      alert("Статья успешно добавлена!");
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
+ 
   return (
     <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
       <form

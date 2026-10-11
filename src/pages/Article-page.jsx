@@ -1,31 +1,18 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
-import Loading from "../loading/Loading";
-import profile from "../../assets/profile.svg";
-import useGetApi from "../../custom-hook/useGetApi";
-import Button from "../button/Button";
+import { Link, useParams } from "react-router-dom";
+import Loading from "../components/loading/Loading";
+import profile from "../assets/profile.svg";
+import useGetApi from "../custom-hook/useGetApi";
+import Button from "../components/button/Button";
 import { useContext, useState } from "react";
-import { Context } from "../contextRouter/ContextRouter";
+import { Context } from "../components/contextRouter/ContextRouter";
+import useDeleteArticle from "../api-reguests/delete-api-article-delete";
+import TagList from "../components/tagList/TagList";
 
 function Article() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
-  const { token, name } = useContext(Context);
+  const { name } = useContext(Context);
   const { slug } = useParams();
-  const DeleteArticle = async () => {
-    const Delete = await fetch(
-      `https://realworld.habsida.net/api/articles/${slug}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      },
-    );
-    if (Delete.ok) {
-      alert("Статья успешно удалена");
-      navigate("/");
-    }
-  };
+  const { deleteArticle } = useDeleteArticle();
   const {
     data: article,
     isLoading,
@@ -46,7 +33,7 @@ function Article() {
               <h1>Вы уверены что хотите удалить статью</h1>
               <Button
                 text="Да"
-                onClick={DeleteArticle}
+                onClick={deleteArticle}
                 className="w-[67px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
               />
               <Button
@@ -73,7 +60,6 @@ function Article() {
                 className="pr-2 w-[34px] h-[34px] "
                 src="/src/assets/user.svg"
               />
-
               <div className="mr-auto">
                 <h1 className="font-semibold text-[16px] text-[#5CB85C] ">
                   {Article.author?.username}
@@ -93,15 +79,9 @@ function Article() {
           <p className="font-Regular text-[16px] text-[#333333] ">
             {Article.body}
           </p>
-          <div className="flex gap-2">
-            {Article.tagList?.map((tag) => (
-              <Button
-                key={tag}
-                text={tag}
-                className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"
-              />
-            ))}
-          </div>
+
+          <TagList article={Article} />
+
           {name !== Article?.author?.username ? null : (
             <div
               className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${name ? "" : "hidden"}`}
@@ -119,7 +99,6 @@ function Article() {
                   </div>
                 </div>
               </div>
-
               <div className="flex gap-[8px]">
                 <Link to={`/articles/${slug}/edit`}>
                   <Button
@@ -127,7 +106,6 @@ function Article() {
                     className=" w-[54px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
                   />
                 </Link>
-
                 <Button
                   onClick={() => setIsModalOpen(true)}
                   text="Delete"

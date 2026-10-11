@@ -22,11 +22,9 @@ function useSignUp() {
       if (response.ok) {
         localStorage.setItem("token", data.user.token);
 
-        localStorage.setItem("vision", "true");
         navigate("/");
       } else {
-        localStorage.setItem("vision", "false");
-
+      
         if (data.errors.body[0].includes("username"))
           setError("username", { message: "Такое имя уже занято" });
         if (data.errors.body[0].includes("email"))

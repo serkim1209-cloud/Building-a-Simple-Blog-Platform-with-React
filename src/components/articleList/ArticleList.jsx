@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import user from "../assets/user.svg";
-import like from "../assets/like.svg";
-import Button from "../components/button/Button";
+import user from "../../assets/user.svg";
+import like from "../../assets/like.svg";
+import TagList from "../tagList/TagList";
 
 function Article({ Articles = [] }) {
   return (
-    <div>
+    <div className="flex flex-col gap-2 ">
       {Articles.map((article) => (
         <div
           key={article?.slug}
@@ -38,15 +38,7 @@ function Article({ Articles = [] }) {
               {article.body}
             </p>
           </Link>
-          <div className="flex gap-2">
-            {article.tagList.map((tag) => (
-              <Button
-                key={tag}
-                text={tag}
-                className="px-5 border-1  min-w-[50px] h-[20px] font-semibold text-[12.8px] border-[#AAAAAA] rounded-xl text-[#AAAAAA]"
-              />
-            ))}
-          </div>
+          <TagList article={article} />
         </div>
       ))}
     </div>

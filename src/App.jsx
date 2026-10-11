@@ -6,7 +6,7 @@ import Main from "./pages/Main-Page";
 import Layout from "./components/layout/Layout";
 import "./App.css";
 import { ContextRoute } from "./components/contextRouter/ContextRouter";
-const Article = lazy(() => import("./components/article/Article"));
+const Article = lazy(() => import("./pages/Article-page"));
 const SignUp = lazy(() => import("./pages/Sign-Up-Page"));
 const SigIn = lazy(() => import("./pages/Sig-In-Page"));
 const Profile = lazy(() => import("./pages/Profile-Page"));
