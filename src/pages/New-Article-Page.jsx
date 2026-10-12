@@ -76,7 +76,7 @@ function NewArticle() {
         />
         <Button
           onClick={() => navigate("/")}
-          text="Canceled"
+          text="Cancel"
           className=" w-[90px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
         />
       </div>

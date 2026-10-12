@@ -10,8 +10,8 @@ const Article = lazy(() => import("./pages/Article-page"));
 const SignUp = lazy(() => import("./pages/Sign-Up-Page"));
 const SigIn = lazy(() => import("./pages/Sig-In-Page"));
 const Profile = lazy(() => import("./pages/Profile-Page"));
-const NewArticle = lazy(() => import("./pages/New-Article-Pages"));
-const EditArticle = lazy(() => import("./pages/Edit-Article-Pages"));
+const NewArticle = lazy(() => import("./pages/New-Article-Page"));
+const EditArticle = lazy(() => import("./pages/Edit-Article-Page"));
 
 function App() {
   return (
