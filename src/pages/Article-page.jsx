@@ -16,15 +16,15 @@ function Article() {
   const {
     data: article,
     isLoading,
-    error: ArticleError,
+    error: articleError,
   } = useGetApi(`https://realworld.habsida.net/api/articles/${slug}`);
-  const Article = article?.article || [];
+  const articleData = article?.article || [];
   return (
     <>
       {isLoading && <Loading />}
 
       <div
-        key={Article.slug}
+        key={articleData.slug}
         className="flex flex-col items-center justify-center max-w-[1280px] min-h-[772px] gap-[24px]"
       >
         {isModalOpen && (
@@ -47,13 +47,13 @@ function Article() {
 
         <div className=" flex justify-center items-center w-full min-h-[282px] bg-[#333333]">
           <div>
-            {ArticleError && (
+            {articleError && (
               <h1 className="text-[35px] text-red-500">
                 Произошла ошибка загрузки
               </h1>
             )}
             <h1 className="font-semibold text-[46px] text-[#FFFFFF] ">
-              {Article.title}
+              {articleData.title}
             </h1>
             <div className="flex items-center justify-between  h-[36px]">
               <img
@@ -62,10 +62,10 @@ function Article() {
               />
               <div className="mr-auto">
                 <h1 className="font-semibold text-[16px] text-[#5CB85C] ">
-                  {Article.author?.username}
+                  {articleData.author?.username}
                 </h1>
                 <p className="text-[#AAAAAA] text-[12.8px] ">
-                  {new Date(Article.createdAt).toLocaleDateString("en-GB", {
+                  {new Date(articleData.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "long",
                     year: "numeric",
@@ -77,12 +77,12 @@ function Article() {
         </div>
         <div className="flex flex-col max-w-[844px] min-h-[244px] gap-[24px]">
           <p className="font-Regular text-[16px] text-[#333333] ">
-            {Article.body}
+            {articleData.body}
           </p>
 
-          <TagList article={Article} />
+          <TagList article={articleData} />
 
-          {name !== Article?.author?.username ? null : (
+          {name !== articleData?.author?.username ? null : (
             <div
               className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${name ? "" : "hidden"}`}
             >

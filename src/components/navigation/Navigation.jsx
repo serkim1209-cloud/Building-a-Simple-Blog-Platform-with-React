@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import profile from "../../assets/Profile.svg";
+import profile from "../../assets/profile.svg";
 import settings from "../../assets/settings.svg";
-import newPost from "../../assets/New post.svg";
+import newPost from "../../assets/new post.svg";
 import { useContext } from "react";
 import { Context } from "../contextRouter/ContextRouter";
 
