@@ -12,6 +12,7 @@ const SigIn = lazy(() => import("./pages/Sig-In-Page"));
 const Profile = lazy(() => import("./pages/Profile-Page"));
 const NewArticle = lazy(() => import("./pages/New-Article-Page"));
 const EditArticle = lazy(() => import("./pages/Edit-Article-Page"));
+const Settings = lazy(() => import("./pages/Settings-Page"));
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
                 <Route path="sign-in" element={<SigIn />} />
                 <Route path="sign-up" element={<SignUp />} />
               </Route>
-
               <Route element={<PrivateRoute />}>
+                <Route path="settings" element={<Settings />} />
+                <Route path="profile/articles/:slug" element={<Article />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="new-article" element={<NewArticle />} />
                 <Route path="articles/:slug/edit" element={<EditArticle />} />

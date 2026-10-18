@@ -7,14 +7,14 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { post } = useSignUp();
+  const { post, error } = useSignUp();
 
   return (
     <div className="flex items-center justify-center">
       <form
         className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
         onSubmit={handleSubmit(post)}
-      >
+      > 
         {errors && <h1 className="text-red-500">{errors.message}</h1>}
         <div>
           <h1 className="font-bold text-[46px] ">Sign Up</h1>
@@ -29,6 +29,7 @@ function LoginForm() {
           type="text"
           placeholder="Username"
         />
+        
         {errors.username && (
           <p className="text-red-500">{errors.username.message}</p>
         )}
@@ -44,6 +45,7 @@ function LoginForm() {
           type="email"
           placeholder="Email address"
         />
+        
         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         <input
           {...register("password", {
@@ -93,6 +95,7 @@ function LoginForm() {
           })}
         />
         </div>
+        {error && <p className="text-red-500">{error}</p> }
    
         {errors.checkbox && (
           <p className="text-red-500">{errors.checkbox.message}</p>

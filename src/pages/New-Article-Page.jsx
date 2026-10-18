@@ -44,14 +44,14 @@ function NewArticle() {
         {errors.description && (
           <p className="text-red-500"> {errors.description.message} </p>
         )}
-        <input
+        <textarea
           {...register("body", {
             validate: (value) =>
               value.trim().length === 0 ? "Body не может быть пустым" : true,
           })}
           type="text"
-          placeholder="body"
-          className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          placeholder="input your text"
+          className="border-1 border-[#AAAAAA] w-[700px] min-h-[100px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors.body && <p className="text-red-500">{errors.body.message}</p>}
         <input

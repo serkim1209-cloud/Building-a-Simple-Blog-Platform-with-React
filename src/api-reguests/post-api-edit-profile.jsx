@@ -4,9 +4,10 @@ import { Context } from "../components/contextRouter/ContextRouter";
 
 function useEditProfile() {
   const navigate = useNavigate();
+ 
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
-  const { name, token,setName } = useContext(Context);
+  const { name, token, setName } = useContext(Context);
   useEffect(() => {
     const getProfile = async () => {
       try {
@@ -16,9 +17,10 @@ function useEditProfile() {
             Authorization: `Token ${token}`,
           },
         });
-        const getResult = await response.json();
         if (!response.ok)
           throw new Error("Произошла ошибка попробуйте ещё раз");
+        const getResult = await response.json();
+        localStorage.setItem("user", JSON.stringify(getResult.user));
         setUser(getResult.user);
       } catch (error) {
         setError(error.message);
@@ -29,6 +31,13 @@ function useEditProfile() {
 
   const putProfile = async (data) => {
     try {
+      const userUpdate = {
+        username: data.username,
+        email: data.email,
+        bio: data.bio,
+        image: data.image,
+      };
+      if (data.password && data.password.trim() !== "") userUpdate.password = data.password
       const profile = await fetch("https://realworld.habsida.net/api/user", {
         method: "PUT",
         headers: {
@@ -36,22 +45,18 @@ function useEditProfile() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          user: {
-            username: data.username,
-            bio: data.bio,
-            image: data.image,
-            email: data.email,
-          },
+          user: userUpdate
         }),
       });
-      const result = await profile.json();
 
       if (!profile.ok) {
         throw new Error("Не удалось обновить профиль");
       }
+      const result = await profile.json();
+      localStorage.setItem("user", JSON.stringify(result.user));
       localStorage.setItem("name", data.username);
-      if (setName) setName(data.username); 
-      navigate("/");
+      if (setName) setName(data.username);
+      alert("Данные обновленны")
     } catch (error) {
       setError(error.message);
     }

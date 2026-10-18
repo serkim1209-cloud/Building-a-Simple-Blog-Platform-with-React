@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import user from "../../assets/user.svg";
 import like from "../../assets/like.svg";
-import TagList from "../tagList/TagList";
+import Tag from "../tag/Tag";
 
-function Article({ Articles = [] }) {
+function ArticleList({ articles = [] }) {
   return (
-    <div className="flex flex-col gap-2 ">
-      {Articles.map((article) => (
+    <div className="flex flex-col gap-2 overflow-hidden">
+      {articles.map((article) => (
         <div
           key={article?.slug}
           className=" w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA] hover:bg-green-500/50"
@@ -34,14 +34,14 @@ function Article({ Articles = [] }) {
           </div>
           <Link to={`articles/${article.slug}`}>
             <h1 className="font-semibold text-[32px] ">{article.title}</h1>
-            <p className="font-Regular text-[16px] text-[#AAAAAA] ">
+            <p className="font-Regular text-[16px] text-[#AAAAAA] h-[72px] overflow-hidden ">
               {article.body}
             </p>
           </Link>
-          <TagList article={article} />
+          <Tag tags={article.tagList} />
         </div>
       ))}
     </div>
   );
 }
-export default Article;
+export default ArticleList;

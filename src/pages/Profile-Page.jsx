@@ -1,76 +1,36 @@
-import Button from "../components/button/Button";
-import useEditProfile from "../api-reguests/post-api-edit-profile";
-import { useForm } from "react-hook-form";
+import ProfileHeader from "../components/profileHeader/profileHeader";
+import Article from "../components/articleList/ArticleList"
+import TagList from "../components/tagList/TagList";
+import Pagination from "../components/pagination/Pagination";
+import useGetApi from "../custom-hook/useGetApi";
+import { useState } from "react";
 
-function Profile() {
+
+function Profile(){
+
+  const [page, setPage] = useState(1);
+  const limit = 3;
+  const offset = (page - 1) * limit;
+
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm();
-  const { user, navigate, putProfile, error } = useEditProfile();
-
-  setValue("username", user?.username);
-  setValue("email", user?.email);
-  setValue("bio", user?.bio);
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
-      <form
-        id="profileForm"
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
-        onSubmit={handleSubmit(putProfile)}
-      >
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        <input
-          {...register("username", {
-            required: "Это поле обязательно для заполнения",
-          })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
-          type="text"
-          placeholder="Username"
-        />
-        {errors.username && (
-          <p style={{ color: "red" }}>{errors.username?.message}</p>
-        )}
-
-        <input
-          {...register("email", {
-            required: "Это поле обязательно для заполнения",
-          })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
-          type="email"
-          placeholder="Email"
-        />
-        {errors.email && (
-          <p style={{ color: "red" }}>{errors.email?.message}</p>
-        )}
-        <input
-          {...register("bio", {
-            required: "Это поле обязательно для заполнения",
-          })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
-          type="text"
-          placeholder="Bio"
-        />
-        {errors.bio && <p style={{ color: "red" }}>{errors.bio?.message}</p>}
-      </form>
-      <div className="flex items-center justify-center gap-[10px]">
-        <Button
-          form="profileForm"
-          type="submit"
-          text="Edit"
-          className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
-        />
-        <Button
-          onClick={() => navigate(-1)}
-          text="Canceled"
-          className=" w-[90px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
-        />
-      </div>
-    </div>
+    load: loading,
+    error: articleError,
+    data: article,
+  } = useGetApi(
+    `https://realworld.habsida.net/api/articles?offset=${offset}&limit=${limit}`,
   );
+
+  const articles = article?.articles || [];
+
+  const totalPages = Math.ceil((article?.articlesCount || 0) / limit);
+
+  return(
+    <div className="flex flex-col justify-center items-center gap-2 my-4">
+      <ProfileHeader/>
+      <TagList/>
+      <Article articles={articles} />
+      <Pagination page={page} setPage={setPage} totalPages={totalPages} />
+    </div>
+  )
 }
 export default Profile;

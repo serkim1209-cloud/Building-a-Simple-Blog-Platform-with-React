@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Loading from "../components/loading/Loading";
 import "swiper/css";
-import Article from "../components/articleList/ArticleList";
+import ArticleList from "../components/articleList/ArticleList";
 import Header from "../components/header/Header";
 import useGetApi from "../custom-hook/useGetApi";
 import Pagination from "../components/pagination/Pagination";
-import Tag from "../components/tag/Tag";
+import Taglist from "../components/tagList/TagList";
 function Main() {
   const [page, setPage] = useState(1);
   const limit = 3;
@@ -13,7 +13,7 @@ function Main() {
 
   const {
     load: loading,
-    error: ArticleError,
+    error: articleError,
     data: article,
   } = useGetApi(
     `https://realworld.habsida.net/api/articles?offset=${offset}&limit=${limit}`,
@@ -26,14 +26,13 @@ function Main() {
   return (
     <main className="flex relative items-center flex-col max-w-[1280px] min-h-[978px] gap-5 py-5">
       <Header />
-
       {loading && <Loading />}
-      <Tag />
+      <Taglist />
 
-      {ArticleError && (
+      {articleError && (
         <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>
       )}
-      <Article Articles={articles} />
+      <ArticleList articles={articles} />
       <Pagination page={page} setPage={setPage} totalPages={totalPages} />
     </main>
   );

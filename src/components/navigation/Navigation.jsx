@@ -10,7 +10,7 @@ function Navigation() {
 
   return (
     <div className="flex items-center justify-center max-w-[1280px] h-[54px] ">
-      <div className="  flex gap-5  w-[800px] h-[34px]">
+      <div className="  flex gap-5 w-full max-w-[800px] h-[34px]">
         <h1 className="text-[24px] text-[#61BB61] mr-auto">Realworld</h1>
         <button>
           <Link to="/">Home</Link>
@@ -23,20 +23,13 @@ function Navigation() {
               <Link to="new-article">New Post</Link>
             </button>
             <button className="flex justify-center items-center gap-2">
-              <img className=" w-[16px]h-[16px]" src={settings} /> Settings
+              <img className=" w-[16px]h-[16px]" src={settings} /><Link to="settings">Settings</Link> 
             </button>
             <button className="flex justify-center items-center gap-2">
               <img className=" w-[16px]h-[16px]" src={profile} />
               <Link to="profile">{name}</Link>
             </button>
-            <button
-              onClick={() => {
-                setToken("");
-                localStorage.clear();
-              }}
-            >
-              Log out
-            </button>
+
           </div>
         ) : (
           <div className="flex gap-4">

@@ -16,22 +16,24 @@ function useSignUp() {
           user: users,
         }),
       });
-
+      console.log(response);
       const data = await response.json();
 
       if (response.ok) {
         localStorage.setItem("token", data.user.token);
-
         navigate("/");
-      } else {
-      
-        if (data.errors.body[0].includes("username"))
-          setError("username", { message: "Такое имя уже занято" });
-        if (data.errors.body[0].includes("email"))
-          setError("email", { message: "Такой Email уже занят" });
+        return;
       }
-    } catch (err) {
-      setError("username", { message: err.message || "ошибка сервера" });
+        else if (data.errors.body[0].includes("username")){
+          setError("Такое имя уже занято");
+        }
+        
+        if (data.errors.body[0].includes("email")){
+           setError("");
+        setError("Такой Email уже занят");
+        }
+    } catch (error) {
+      setError(error);
     }
   };
 
