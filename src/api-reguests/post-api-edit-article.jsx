@@ -6,6 +6,7 @@ function useEditArticle(setValue) {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { name, token } = useContext(Context);
   useEffect(() => {
     const getArticle = async () => {
@@ -60,13 +61,11 @@ function useEditArticle(setValue) {
       if (!response.ok) {
         throw new Error(JSON.stringify(data.errors));
       }
-
-      alert("Статья успешно изменена!");
-      navigate("/");
+      setIsModalOpen(true);
     } catch (error) {
       setError(error.message);
     }
   };
-  return { error,navigate, onSubmit };
+  return { error, navigate, onSubmit, isModalOpen, setIsModalOpen };
 }
 export default useEditArticle;

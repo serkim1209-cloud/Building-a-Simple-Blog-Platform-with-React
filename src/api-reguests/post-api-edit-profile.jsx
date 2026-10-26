@@ -4,7 +4,7 @@ import { Context } from "../components/contextRouter/ContextRouter";
 
 function useEditProfile() {
   const navigate = useNavigate();
- 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const { name, token, setName } = useContext(Context);
@@ -37,7 +37,8 @@ function useEditProfile() {
         bio: data.bio,
         image: data.image,
       };
-      if (data.password && data.password.trim() !== "") userUpdate.password = data.password
+      if (data.password && data.password.trim() !== "")
+        userUpdate.password = data.password;
       const profile = await fetch("https://realworld.habsida.net/api/user", {
         method: "PUT",
         headers: {
@@ -45,7 +46,7 @@ function useEditProfile() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          user: userUpdate
+          user: userUpdate,
         }),
       });
 
@@ -56,11 +57,11 @@ function useEditProfile() {
       localStorage.setItem("user", JSON.stringify(result.user));
       localStorage.setItem("name", data.username);
       if (setName) setName(data.username);
-      alert("Данные обновленны")
+      setIsModalOpen(true);
     } catch (error) {
       setError(error.message);
     }
   };
-  return { user, navigate, putProfile, error };
+  return { user, navigate, putProfile, error, isModalOpen, setIsModalOpen };
 }
 export default useEditProfile;

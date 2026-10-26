@@ -3,6 +3,7 @@ import useEditProfile from "../api-reguests/post-api-edit-profile";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { Context } from "../components/contextRouter/ContextRouter";
+import ModalWindow from "../components/modalWindow/ModalWindow";
 
 function ProfileSettings() {
   const { setToken } = useContext(Context);
@@ -12,16 +13,17 @@ function ProfileSettings() {
     formState: { errors },
     setValue,
   } = useForm();
-  const { navigate, putProfile, error } = useEditProfile();
-const userInfo = JSON.parse(localStorage.getItem("user"))
+  const { navigate, putProfile, error, isModalOpen, setIsModalOpen } =
+    useEditProfile();
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
-  setValue("username",userInfo?.username);
+  setValue("username", userInfo?.username);
   setValue("email", userInfo?.email);
   setValue("bio", userInfo?.bio);
-  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
+      <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} text={"Данные обновлены"} />
       <form
         id="profileForm"
         className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
@@ -61,10 +63,10 @@ const userInfo = JSON.parse(localStorage.getItem("user"))
         />
         {errors.bio && <p style={{ color: "red" }}>{errors.bio?.message}</p>}
         <input
-        {...register("password",)} 
-        type="password"
-        placeholder="Password"
-        className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
+          {...register("password")}
+          type="password"
+          placeholder="Password"
+          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
         />
       </form>
       <div className="flex items-center justify-center gap-[10px]">
@@ -72,6 +74,7 @@ const userInfo = JSON.parse(localStorage.getItem("user"))
           form="profileForm"
           type="submit"
           text="Update Settings"
+          onClick={(event)=>event.currentTarget.blur()}
           className=" w-[144px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
         />
         <Button

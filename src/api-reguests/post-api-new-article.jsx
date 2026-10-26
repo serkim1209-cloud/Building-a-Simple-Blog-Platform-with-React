@@ -3,11 +3,12 @@ import { Context } from "../components/contextRouter/ContextRouter";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function useNewArticle (){
-const navigate = useNavigate();
-const [error, setError] = useState("");
-const { token } = useContext(Context);
-const onSubmit = async (formData) => {
+function useNewArticle() {
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState("");
+  const { token } = useContext(Context);
+  const onSubmit = async (formData) => {
     try {
       const response = await fetch(
         "https://realworld.habsida.net/api/articles",
@@ -28,15 +29,23 @@ const onSubmit = async (formData) => {
         },
       );
       const data = await response.json();
+      if (data?.errors?.body[0].includes("articles.slug")) {
+        setError("Такой Title уже занят");
+        return;
+      }
+
       if (!response.ok) {
         throw new Error(data.error.message);
       }
-      alert("Статья успешно добавлена!");
-      navigate("/");
+      setError("");
+      setIsModalOpen(true);
+      console.log(data);
+
     } catch (error) {
+      setError("");
       setError(error.message);
     }
-  }
-  return{onSubmit,navigate,error,}
+  };
+  return { onSubmit, navigate, error, isModalOpen, setIsModalOpen };
 }
 export default useNewArticle;

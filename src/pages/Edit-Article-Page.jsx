@@ -1,6 +1,7 @@
 import Button from "../components/button/Button";
 import { useForm } from "react-hook-form";
 import useEditArticle from "../api-reguests/post-api-edit-article";
+import ModalWindow from "../components/modalWindow/ModalWindow";
 
 function EditArticle() {
   const {
@@ -10,10 +11,11 @@ function EditArticle() {
     formState: { errors },
   } = useForm();
 
-  const { error,navigate, onSubmit } = useEditArticle(setValue);
+  const { error,navigate, onSubmit, isModalOpen, setIsModalOpen } = useEditArticle(setValue);
 
   return (
     <div className="flex flex-col  items-center justify-center w-auto min-h-[538px] gap-[10px]">
+      <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} text={"Статья успешно обновлена"} />
       <form
         id="myForm"
         className="flex flex-col items-center justify-center max-w-[700px] h-auto gap-[10px]"
@@ -71,6 +73,7 @@ function EditArticle() {
           type="submit"
           form="myForm"
           text="Edit Article"
+          onClick={(event)=>event.currentTarget.blur()}
           className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
         />
         <Button

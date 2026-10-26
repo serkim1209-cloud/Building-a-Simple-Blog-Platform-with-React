@@ -19,7 +19,7 @@ function Article() {
     error: articleError,
   } = useGetApi(`https://realworld.habsida.net/api/articles/${slug}`);
 
-const articles = article?.article || null;
+  const articles = article?.article || null;
 
   return (
     <>
@@ -35,7 +35,7 @@ const articles = article?.article || null;
               <h1>Вы уверены что хотите удалить статью</h1>
               <Button
                 text="Да"
-                onClick={deleteArticle}
+                onClick={() => deleteArticle()}
                 className="w-[67px] h-[32px] border-1 border-[#BB6161] text-[#BB6161] rounded-[10px] font-regular text-[12.8px]"
               />
               <Button

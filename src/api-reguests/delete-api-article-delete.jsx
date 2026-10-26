@@ -1,13 +1,14 @@
-import { useNavigate,useParams } from "react-router-dom";
-import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext} from "react";
 import { Context } from "../components/contextRouter/ContextRouter";
 
-  function useDeleteArticle() {
-    const { slug } = useParams();
-    const{token}=useContext(Context);
-    const navigate = useNavigate();
-    const deleteArticle = async ()=>{ 
-    const response  = await fetch(
+function useDeleteArticle() {
+  
+  const { slug } = useParams();
+  const { token } = useContext(Context);
+  const navigate = useNavigate();
+  const deleteArticle = async () => {
+    const response = await fetch(
       `https://realworld.habsida.net/api/articles/${slug}`,
       {
         method: "DELETE",
@@ -17,11 +18,11 @@ import { Context } from "../components/contextRouter/ContextRouter";
       },
     );
     if (response.ok) {
-      alert("Статья успешно удалена");
-      navigate("/");
+    
+console.log(response)
+     navigate("/");
     }
-    }
-    return{deleteArticle}
-
   };
-  export default useDeleteArticle;
+  return {deleteArticle};
+}
+export default useDeleteArticle;

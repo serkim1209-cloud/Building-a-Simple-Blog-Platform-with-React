@@ -1,24 +1,30 @@
 import Button from "../components/button/Button";
 import { useForm } from "react-hook-form";
 import useNewArticle from "../api-reguests/post-api-new-article";
-
+import ModalWindow from "../components/modalWindow/ModalWindow";
 
 function NewArticle() {
-  const{onSubmit,navigate,error,}=useNewArticle();
+  const { onSubmit, navigate, error, isModalOpen, setIsModalOpen } =
+    useNewArticle();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
- 
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
+      <ModalWindow
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        text={"Статья успешно добавлена!"}
+      />
       <form
         id="addForm"
         className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
 
         <input
           {...register("title", {
@@ -47,7 +53,7 @@ function NewArticle() {
         <textarea
           {...register("body", {
             validate: (value) =>
-              value.trim().length === 0 ? "Body не может быть пустым" : true,
+              value.trim().length === 0 ? " Вы забыли ввести текст" : true,
           })}
           type="text"
           placeholder="input your text"
@@ -60,7 +66,7 @@ function NewArticle() {
               value.trim().length === 0 ? "tagList не может быть пустым" : true,
           })}
           type="text"
-          placeholder="tagList"
+          placeholder="react,java,tag"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors.tagList && (
@@ -72,6 +78,7 @@ function NewArticle() {
           type="submit"
           form="addForm"
           text="Add Article"
+          onClick={(event)=>{event.currentTarget.blur()}}
           className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
         />
         <Button
