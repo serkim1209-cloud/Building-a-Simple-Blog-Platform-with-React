@@ -33,7 +33,7 @@ function ArticleForm({
               value.trim().length === 0 ? "Title не может быть пустым" : true,
           })}
           type="text"
-          placeholder="title"
+          placeholder="Напишите заголовок статьи"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.title && (
@@ -47,7 +47,7 @@ function ArticleForm({
                 : true,
           })}
           type="text"
-          placeholder="description"
+          placeholder="Добавьте описание статьи"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.description && (
@@ -59,7 +59,7 @@ function ArticleForm({
               value.trim().length === 0 ? " Вы забыли ввести текст" : true,
           })}
           type="text"
-          placeholder="input your text"
+          placeholder="Напишите сюда текст статьи"
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[100px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.body && (
@@ -71,7 +71,7 @@ function ArticleForm({
               value.trim().length === 0 ? "tagList не может быть пустым" : true,
           })}
           type="text"
-          placeholder="react,java,tag"
+          placeholder="Добавьте сюда ключевые слова для поиска например -> ( java, react, javaScript ) "
           className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.tagList && (
