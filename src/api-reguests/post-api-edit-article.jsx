@@ -58,9 +58,11 @@ function useEditArticle(setValue) {
         },
       );
       const data = await response.json();
+
       if (!response.ok) {
         throw new Error(JSON.stringify(data.errors));
       }
+
       setIsModalOpen(true);
     } catch (error) {
       setError(error.message);
