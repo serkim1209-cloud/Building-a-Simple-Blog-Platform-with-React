@@ -1,6 +1,7 @@
 import { Link} from "react-router-dom";
 import user from "../../assets/user.svg";
 import like from "../../assets/like.svg";
+import favorite from "../../assets/favorite-true.png"
 import Tag from "../tag/Tag";
 import usefavorite from "../../api-reguests/post-api-article-favorite";
 function ArticleList({ articles, setArticles}) {
@@ -30,7 +31,7 @@ function ArticleList({ articles, setArticles}) {
             <div className="flex w-[77px] h-[40px] items-center justify-center justify-evenly rounded-xl border-1 border-[#5CB85C] ">
               <div>
                 <button className="flex" onClick={()=>{toogleFavorite(article?.slug,article?.favorited,setArticles)}}>
-                  <img src={like} />
+                  <img className="w-[20px] h-[20px]" src={article.favorited ?favorite:like} />
                 </button>
                 
               </div>

@@ -30,7 +30,7 @@ function useNewArticle() {
       );
       const data = await response.json();
       if (data?.errors?.body[0].includes("articles.slug")) {
-        setError("Такой Title уже занят");
+        setError("Такой заголовок уже занят");
         return;
       }
 

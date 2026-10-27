@@ -1,24 +1,39 @@
 import ModalWindow from "../modalWindow/ModalWindow";
 import Button from "../button/Button";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 function ArticleForm({
-  register,
-  errors,
-  handleSubmit,
+  modalText,
+  initValue,
   onSubmit,
   navigate,
   error,
+  setError,
   isModalOpen,
   setIsModalOpen,
   buttonText1,
   buttonText2,
 }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: initValue });
+  {
+    useEffect(() => {
+      if (initValue) {
+        reset(initValue);
+      }
+    }, [reset, initValue]);
+  }
   return (
     <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
       <ModalWindow
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        text={"Статья успешно добавлена!"}
+        text={modalText}
       />
       <form
         id="addForm"
@@ -30,7 +45,9 @@ function ArticleForm({
         <input
           {...register("title", {
             validate: (value) =>
-              value.trim().length === 0 ? "Title не может быть пустым" : true,
+              value.trim().length === 0
+                ? "Заголовок не может быть пустым"
+                : true,
           })}
           type="text"
           placeholder="Напишите заголовок статьи"
@@ -43,7 +60,7 @@ function ArticleForm({
           {...register("description", {
             validate: (value) =>
               value.trim().length === 0
-                ? "description не может быть пустым"
+                ? "Описание не может быть пустым"
                 : true,
           })}
           type="text"
@@ -56,7 +73,9 @@ function ArticleForm({
         <textarea
           {...register("body", {
             validate: (value) =>
-              value.trim().length === 0 ? " Вы забыли ввести текст" : true,
+              value.trim().length === 0
+                ? " Вы забыли ввести текст статьи"
+                : true,
           })}
           type="text"
           placeholder="Напишите сюда текст статьи"
@@ -68,7 +87,9 @@ function ArticleForm({
         <input
           {...register("tagList", {
             validate: (value) =>
-              value.trim().length === 0 ? "tagList не может быть пустым" : true,
+              value.trim().length === 0
+                ? "Ключевые слова не могут быть пустыми"
+                : true,
           })}
           type="text"
           placeholder="Добавьте сюда ключевые слова для поиска например -> ( java, react, javaScript ) "
@@ -85,6 +106,7 @@ function ArticleForm({
           text={buttonText1}
           onClick={(event) => {
             event.currentTarget.blur();
+            setError("");
           }}
           className=" w-[90px] h-[32px] border-1 border-[#61BB61] text-[#61BB61] rounded-[10px] font-regular text-[12.8px]"
         />

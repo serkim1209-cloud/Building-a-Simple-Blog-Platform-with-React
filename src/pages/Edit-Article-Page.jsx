@@ -1,24 +1,22 @@
 import useEditArticle from "../api-reguests/post-api-edit-article";
 import ArticleForm from "../components/articleForm/ArticleForm";
-import { useForm } from "react-hook-form";
 
 function EditArticle() {
   const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const { error, navigate, onSubmit, isModalOpen, setIsModalOpen, dataForm } =
-    useEditArticle(setValue);
+    error,
+    navigate,
+    onSubmit,
+    isModalOpen,
+    setIsModalOpen,
+    initValue,
+    setError,
+  } = useEditArticle();
 
   return (
     <ArticleForm
-      dataForm={dataForm}
-      register={register}
-      handleSubmit={handleSubmit}
-      errors={errors}
+      setError={setError}
+      modalText={"Статья успешно изменена"}
+      initValue={initValue}
       onSubmit={onSubmit}
       navigate={navigate}
       error={error}

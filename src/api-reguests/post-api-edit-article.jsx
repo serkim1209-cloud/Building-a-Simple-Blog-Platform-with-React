@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../components/contextRouter/ContextRouter";
 
-function useEditArticle(setValue) {
+function useEditArticle() {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [error, setError] = useState("");
+  const [initValue, setInitValue] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { name, token } = useContext(Context);
   useEffect(() => {
@@ -23,13 +24,14 @@ function useEditArticle(setValue) {
           navigate("/");
           return;
         }
-        setValue("title", getdata.article.title);
-        setValue("description", getdata.article.description);
-        setValue("body", getdata.article.body);
-        setValue(
-          "tagList",
-          getdata.article.tagList ? getdata.article.tagList.join(", ") : "",
-        );
+        setInitValue({
+          title: getdata?.article?.title,
+          description: getdata?.article?.description,
+          body: getdata?.article?.body,
+          tagList: getdata?.article.tagList
+            ? getdata.article.tagList.join(", ")
+            : "",
+        });
       } catch (error) {
         setError(error.message);
       }
@@ -58,6 +60,7 @@ function useEditArticle(setValue) {
         },
       );
       const data = await response.json();
+      console.log(response);
 
       if (!response.ok) {
         throw new Error(JSON.stringify(data.errors));
@@ -65,9 +68,10 @@ function useEditArticle(setValue) {
 
       setIsModalOpen(true);
     } catch (error) {
-      setError(error.message);
+      if(error) setError("Произошла ошибка попробуте изменить заголовок");
+      
     }
   };
-  return { error, navigate, onSubmit, isModalOpen, setIsModalOpen };
+  return { error, navigate, onSubmit, isModalOpen, setIsModalOpen, initValue, setError };
 }
 export default useEditArticle;
