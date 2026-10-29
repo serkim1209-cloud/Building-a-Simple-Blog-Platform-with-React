@@ -27,10 +27,10 @@ function Main() {
   const totalPages = Math.ceil((article?.articlesCount || 0) / limit);
 
   return (
-    <main className="flex relative items-center flex-col max-w-[1280px] min-h-[978px] gap-5 py-5">
+    <main>
       <Header />
       {loading && <Loading />}
-      <Taglist />
+      <Taglist/>
 
       {articleError && (
         <h1 className="text-[35px] text-red-500">Произошла ошибка загрузки</h1>

@@ -54,7 +54,7 @@ function useEditArticle() {
               title: formData.title,
               description: formData.description,
               body: formData.body,
-              tagList: formData.tagList.split(",").map((tag) => tag.trim()),
+              tagList: formData.tagList.split(/[,\.\s]+/)
             },
           }),
         },

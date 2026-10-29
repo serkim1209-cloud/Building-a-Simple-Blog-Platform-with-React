@@ -27,11 +27,11 @@ function Article() {
 
       <div
         key={articles?.slug}
-        className="flex flex-col items-center justify-center max-w-[1280px] min-h-[772px] gap-[24px]"
+        className="flex flex-col items-center justify-center w-full max-w-[1280px] min-h-[772px] gap-[24px]"
       >
         {isModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black/70">
-            <div className="flex gap-4 p-6 bg-white rounded-lg shadow-lg items-center justify-center">
+          <div className="fixed inset-0 flex w-full items-center justify-center bg-black/70">
+            <div className="flex gap-4 p-6 bg-white w-full max-w-[500px] rounded-lg shadow-lg items-center justify-center">
               <h1>Вы уверены что хотите удалить статью</h1>
               <Button
                 text="Да"
@@ -47,7 +47,7 @@ function Article() {
           </div>
         )}
 
-        <div className=" flex justify-center items-center w-full min-h-[282px] bg-[#333333] p-7 ">
+        <div className=" flex justify-center items-center w-full max-w-[1280px] min-h-[282px] bg-[#333333] p-7 ">
           <div>
             {articleError && (
               <h1 className="text-[35px] text-red-500">
@@ -77,7 +77,7 @@ function Article() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col max-w-[844px] min-h-[244px] gap-[24px]">
+        <div className="flex flex-col w-full max-w-[844px] min-h-[244px] gap-[24px]">
           <p className="font-Regular text-[16px] text-[#333333] ">
             {articles?.body}
           </p>
@@ -86,7 +86,7 @@ function Article() {
 
           {name !== articles?.author?.username ? null : (
             <div
-              className={`flex items-center justify-center w-[768px] max-h-[80px] gap-[10px] p-[10px] ${name ? "" : "hidden"}`}
+              className={`flex items-center justify-center w-full  max-w-[768px] max-h-[80px] gap-[10px] p-[10px] ${name ? "" : "hidden"}`}
             >
               <div className="flex items-center justify-center gap-3 w-auto h-[36px]">
                 <img className="w-[16px] h-[16px]" src={profile} />

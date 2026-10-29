@@ -29,7 +29,7 @@ function ArticleForm({
     }, [reset, initValue]);
   }
   return (
-    <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
+    <div className="flex flex-col items-center justify-center w-full  max-w-[1200px] min-h-[538px] gap-[10px]">
       <ModalWindow
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
@@ -37,7 +37,7 @@ function ArticleForm({
       />
       <form
         id="addForm"
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
+        className="flex flex-col items-center justify-center w-full max-w-[800px]  min-h-auto gap-[10px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         {error && <p className="text-red-500">{error}</p>}
@@ -51,7 +51,7 @@ function ArticleForm({
           })}
           type="text"
           placeholder="Напишите заголовок статьи"
-          className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w[700px]   min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.title && (
           <p className="text-red-500">{errors?.title?.message}</p>
@@ -65,7 +65,7 @@ function ArticleForm({
           })}
           type="text"
           placeholder="Добавьте описание статьи"
-          className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.description && (
           <p className="text-red-500"> {errors?.description?.message} </p>
@@ -79,7 +79,7 @@ function ArticleForm({
           })}
           type="text"
           placeholder="Напишите сюда текст статьи"
-          className="border-1 border-[#AAAAAA] w-[700px] min-h-[100px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w[700px] min-h-[100px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.body && (
           <p className="text-red-500">{errors?.body?.message}</p>
@@ -93,7 +93,7 @@ function ArticleForm({
           })}
           type="text"
           placeholder="Добавьте сюда ключевые слова для поиска например -> ( java, react, javaScript ) "
-          className="border-1 border-[#AAAAAA] w-[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w[700px] min-h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
         />
         {errors?.tagList && (
           <p className="text-red-500"> {errors?.tagList?.message} </p>

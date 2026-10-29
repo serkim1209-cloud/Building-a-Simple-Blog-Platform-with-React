@@ -8,11 +8,11 @@ function ArticleList({ articles, setArticles}) {
 
   const {toogleFavorite}=usefavorite()
   return (
-    <div className="flex flex-col gap-2 overflow-hidden">
+    <div className="flex flex-col items-center w-full max-w-[1280px] gap-2 overflow-hidden p-[10px]">
       {articles?.map((article) => (
         <div
           key={article?.slug}
-          className=" w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA] hover:bg-green-500/50"
+          className=" w-full max-w-[800px] max-h-[278px] py-5 px-5 rounded-xl border-[1px] border-[#AAAAAA] hover:bg-green-500/50"
         >
           <div className="flex items-center justify-between  h-[36px]">
             <img className="pr-2 w-[34px] h-[34px] " src={user} />
@@ -31,7 +31,7 @@ function ArticleList({ articles, setArticles}) {
             <div className="flex w-[77px] h-[40px] items-center justify-center justify-evenly rounded-xl border-1 border-[#5CB85C] ">
               <div>
                 <button className="flex" onClick={()=>{toogleFavorite(article?.slug,article?.favorited,setArticles)}}>
-                  <img className="w-[20px] h-[20px]" src={article.favorited ?favorite:like} />
+                  <img className="w-[20px] h-[20px] cursor-pointer" src={article.favorited ?favorite:like} />
                 </button>
                 
               </div>

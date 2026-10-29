@@ -22,11 +22,11 @@ function ProfileSettings() {
   setValue("bio", userInfo?.bio);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[538px] gap-[10px]">
+    <div className="flex flex-col items-center justify-center w-full max-w-[1280px] min-h-[538px] gap-[10px]">
       <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} text={"Данные обновлены"} />
       <form
         id="profileForm"
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-auto gap-[10px]"
+        className="flex flex-col items-center justify-center w-full max-w-[500px] min-h-auto gap-[10px]"
         onSubmit={handleSubmit(putProfile)}
       >
         {error && <p style={{ color: "red" }}>{error}</p>}
@@ -35,7 +35,7 @@ function ProfileSettings() {
           {...register("username", {
             required: "Это поле обязательно для заполнения",
           })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="text"
           placeholder="Username"
         />
@@ -47,7 +47,7 @@ function ProfileSettings() {
           {...register("email", {
             required: "Это поле обязательно для заполнения",
           })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="email"
           placeholder="Email"
         />
@@ -58,7 +58,7 @@ function ProfileSettings() {
           {...register("bio", {
             required: "Это поле обязательно для заполнения",
           })}
-          className="border border-[#AAAAAA] w-[480px] h-[100px] rounded-[8px] cursor-pointer pl-5 pt-3 placeholder:text-[16px] resize-none"
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[100px] rounded-[8px] cursor-pointer pl-5 pt-3 placeholder:text-[16px] resize-none"
           placeholder="Bio"
         />
         {errors.bio && <p style={{ color: "red" }}>{errors.bio?.message}</p>}
@@ -66,7 +66,7 @@ function ProfileSettings() {
           {...register("password")}
           type="password"
           placeholder="Password"
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
         />
       </form>
       <div className="flex items-center justify-center gap-[10px]">
