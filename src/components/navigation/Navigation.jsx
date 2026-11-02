@@ -18,31 +18,31 @@ function Navigation() {
         </button>
         
         <button>
-          <Link to="/">Home</Link>
+          <Link to="/" className="text-[12px]">Home</Link>
         </button>
 
         {token ? (
           <div className="flex gap-4 ">
             <button className="flex justify-center items-center gap-2">
               <img className=" max-w-[16px] max-h-[16px]" src={newPost} />
-              <Link to="new-article">New Post</Link>
+              <Link to="new-article" className="text-[12px]">New Post</Link>
             </button>
             <button className="flex justify-center items-center gap-2">
-              <img className=" max-w-[16px] max-h-[16px]" src={settings} /><Link to="settings">Settings</Link> 
+              <img className=" max-w-[16px] max-h-[16px]" src={settings} /><Link to="settings" className="text-[12px]">Settings</Link> 
             </button>
             <button className="flex justify-center items-center gap-2">
               <img className=" max-w-[16px] max-h-[16px]" src={profile} />
-              <Link to="profile">{name}</Link>
+              <Link to="profile" className="text-[12px]">{name}</Link>
             </button>
 
           </div>
         ) : (
           <div className="flex gap-4">
             <button>
-              <Link to="sign-in">Sign In</Link>
+              <Link to="sign-in" className="text-[12px]">Sign In</Link>
             </button>
             <button>
-              <Link to="sign-up">Sign Up</Link>
+              <Link to="sign-up" className="text-[12px]">Sign Up</Link>
             </button>
           </div>
         )}
