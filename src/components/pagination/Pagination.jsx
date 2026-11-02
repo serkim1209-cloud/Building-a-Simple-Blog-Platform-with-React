@@ -1,8 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 function Pagination({ page, setPage, totalPages }) {
   return (
-   <div className="p-[10px]">
-      <Swiper slidesPerView={"auto"} spaceBetween={8} className=" max-w-[505px]">
+   <div className=" w-full max-w-[400px] p-[10px]">
+      <Swiper slidesPerView={"auto"} spaceBetween={8} className=" w-full max-w-[400px]">
       {Array.from({ length: totalPages }, (_, index) => (
         <SwiperSlide
           key={index}
