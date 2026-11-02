@@ -12,7 +12,7 @@ function LoginForm() {
   return (
     <div className="flex items-center justify-center">
       <form
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
+        className="flex flex-col items-center justify-center w-full max-w-[500px] min-h-[538px] gap-[10px]"
         onSubmit={handleSubmit(post)}
       > 
         {errors && <h1 className="text-red-500">{errors.message}</h1>}
@@ -25,7 +25,7 @@ function LoginForm() {
             minLength: { value: 3, message: "Имя слишком короткое" },
             required: "Имя не может быть пустым",
           })}
-          className="border-1 border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="text"
           placeholder="Username"
         />
@@ -41,7 +41,7 @@ function LoginForm() {
             },
             required: "Email не может быть пустым",
           })}
-          className="border-1 border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="email"
           placeholder="Email address"
         />
@@ -59,7 +59,7 @@ function LoginForm() {
             },
             required: "Пароль не может быть пустым",
           })}
-          className="border-1 border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="password"
           placeholder="Password"
         />
@@ -79,7 +79,7 @@ function LoginForm() {
             validate: (value) =>
               value === watch("password") || "Пароли не совпадают",
           })}
-          className="border-1 border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
+          className="border-1 border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]  "
           type="password"
           placeholder="Repeat password"
         />
@@ -100,7 +100,7 @@ function LoginForm() {
         {errors.checkbox && (
           <p className="text-red-500">{errors.checkbox.message}</p>
         )}
-        <div className="flex justify-end w-[480px] h-[48px]">
+        <div className="flex justify-end w-full max-w-[480px] h-[48px]">
           <button
             className="flex items-center justify-center w-[120px] h-[43px] bg-[#61BB61] rounded-[8px] text-[#FFFFFF] "
             type="submit"

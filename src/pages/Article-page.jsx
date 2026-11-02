@@ -31,7 +31,7 @@ function Article() {
       >
         {isModalOpen && (
           <div className="fixed inset-0 flex w-full items-center justify-center bg-black/70">
-            <div className="flex gap-4 p-6 bg-white w-full max-w-[500px] rounded-lg shadow-lg items-center justify-center">
+            <div className="flex gap-4 p-6 bg-white w-full max-w-[1280px] rounded-lg shadow-lg items-center justify-center">
               <h1>Вы уверены что хотите удалить статью</h1>
               <Button
                 text="Да"

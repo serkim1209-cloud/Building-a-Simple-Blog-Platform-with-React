@@ -9,9 +9,9 @@ function SigIn() {
   const { error, post } = useLogin();
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center w-full justify-center">
       <form
-        className="flex flex-col items-center justify-center max-w-[500px] min-h-[538px] gap-[10px]"
+        className="flex flex-col items-center justify-center w-full max-w-[500px] min-h-[538px] gap-[10px]"
         onSubmit={handleSubmit(post)}
       >
         <div>
@@ -27,7 +27,7 @@ function SigIn() {
               message: "Введите корректный email",
             },
           })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
           type="text"
           placeholder="Email"
         />
@@ -39,12 +39,12 @@ function SigIn() {
               (value.length >= 8 && value.length <= 40) ||
               "Пароль не может быть меньше 8 и не больше 40 символов",
           })}
-          className="border border-[#AAAAAA] w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
+          className="border border-[#AAAAAA] w-full max-w-[480px] h-[48px] rounded-[8px] cursor-pointer pl-5 placeholder:text-[16px]"
           type="password"
           placeholder="Password"
         />
         {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-        <div className="flex justify-end w-[480px] h-[48px]">
+        <div className="flex justify-end w-full max-w-[480px] h-[48px]">
           <button
             className="flex items-center justify-center w-[120px] h-[43px] bg-[#61BB61] rounded-[8px] text-[#FFFFFF]"
             type="submit"
