@@ -27,7 +27,7 @@ function Main() {
   const totalPages = Math.ceil((article?.articlesCount || 0) / limit);
 
   return (
-    <main>
+    <main className="w-full max-w-[1280px]">
       <Header />
       {loading && <Loading />}
       <Taglist/>
